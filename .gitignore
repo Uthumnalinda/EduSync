@@ -1,0 +1,23 @@
+# Temporary & Scratch Files
+scratch/
+*.log
+*.tmp
+
+# IDE / Editor Files
+.vscode/
+.idea/
+*.swp
+*.sublime-project
+*.sublime-workspace
+
+# OS Generated Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Dependencies & Build Files (if added later)
+node_modules/
+vendor/
+
+# Environment / Secret Credentials (if added later)
+.env
