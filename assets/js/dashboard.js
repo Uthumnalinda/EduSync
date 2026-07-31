@@ -81,9 +81,14 @@ function initDashboardCharts() {
     return;
   }
 
+  // Check active system theme
+  const isDarkMode = document.documentElement.getAttribute('data-theme') === 'dark';
+  const textColor = isDarkMode ? '#cbd5e1' : '#64748b';
+  const gridColor = isDarkMode ? 'rgba(255, 255, 255, 0.08)' : '#f1f5f9';
+
   // Set Chart.js global defaults
   Chart.defaults.font.family = "'Inter', sans-serif";
-  Chart.defaults.color = '#64748b';
+  Chart.defaults.color = textColor;
 
   // 1. Enrollment Trends Area Chart
   const enrollmentCanvas = document.getElementById('enrollmentChart');
@@ -127,9 +132,13 @@ function initDashboardCharts() {
           }
         },
         scales: {
-          x: { grid: { display: false } },
+          x: { 
+            grid: { display: false },
+            ticks: { color: textColor }
+          },
           y: {
-            grid: { color: '#f1f5f9' },
+            grid: { color: gridColor },
+            ticks: { color: textColor },
             beginAtZero: false
           }
         }
@@ -153,7 +162,7 @@ function initDashboardCharts() {
           data: dataValues,
           backgroundColor: colors,
           borderWidth: 2,
-          borderColor: '#ffffff',
+          borderColor: isDarkMode ? '#1e293b' : '#ffffff',
           hoverOffset: 6
         }]
       },
@@ -191,8 +200,15 @@ function initDashboardCharts() {
         maintainAspectRatio: false,
         plugins: { legend: { display: false } },
         scales: {
-          x: { grid: { display: false } },
-          y: { grid: { color: '#f1f5f9' }, beginAtZero: true }
+          x: { 
+            grid: { display: false },
+            ticks: { color: textColor }
+          },
+          y: { 
+            grid: { color: gridColor },
+            ticks: { color: textColor },
+            beginAtZero: true 
+          }
         }
       }
     });
