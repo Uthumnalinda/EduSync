@@ -24,7 +24,7 @@ CREATE TABLE `students` (
   `guardian_name` VARCHAR(100) NOT NULL,
   `guardian_phone` VARCHAR(20) NOT NULL,
   `grade` VARCHAR(20) NOT NULL,
-  `status` ENUM('Active', 'Inactive', 'Graduated') DEFAULT 'Active',
+  `status` ENUM('Active', 'Inactive') DEFAULT 'Active',
   `photo` VARCHAR(255) DEFAULT NULL,
   `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
