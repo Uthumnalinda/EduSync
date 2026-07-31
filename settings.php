@@ -133,13 +133,13 @@ include_once __DIR__ . '/includes/sidebar.php';
         </div>
 
         <?php if (!empty($successMessage)): ?>
-            <div style="background: #ecfdf5; color: #047857; border: 1px solid #a7f3d0; padding: 12px 16px; border-radius: 8px; font-size: 14px; margin-bottom: 20px; font-weight: 500;">
+            <div class="flash-alert" style="background: #ecfdf5; color: #047857; border: 1px solid #a7f3d0; padding: 12px 16px; border-radius: 8px; font-size: 14px; margin-bottom: 20px; font-weight: 500; transition: opacity 0.5s ease;">
                 <?php echo htmlspecialchars($successMessage); ?>
             </div>
         <?php endif; ?>
 
         <?php if (!empty($errorMessage)): ?>
-            <div style="background: #fef2f2; color: #ef4444; border: 1px solid #fca5a5; padding: 12px 16px; border-radius: 8px; font-size: 14px; margin-bottom: 20px; font-weight: 500;">
+            <div class="flash-alert" style="background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; padding: 12px 16px; border-radius: 8px; font-size: 14px; margin-bottom: 20px; font-weight: 500; transition: opacity 0.5s ease;">
                 <?php echo htmlspecialchars($errorMessage); ?>
             </div>
         <?php endif; ?>
@@ -240,5 +240,19 @@ include_once __DIR__ . '/includes/sidebar.php';
             </div>
         <?php endif; ?>
     </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const alerts = document.querySelectorAll('.flash-alert');
+            if (alerts.length > 0) {
+                setTimeout(() => {
+                    alerts.forEach(alert => {
+                        alert.style.opacity = '0';
+                        setTimeout(() => alert.remove(), 500);
+                    });
+                }, 5000);
+            }
+        });
+    </script>
 
 <?php include_once __DIR__ . '/includes/footer.php'; ?>
