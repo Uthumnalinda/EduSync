@@ -178,4 +178,25 @@ INSERT INTO `workshops` (`title`, `instructor`, `scheduled_date`, `capacity`, `s
 ('STEM Leadership & Robotics Workshop', 'Dr. Ama Asante', '2026-08-10', 40, 'Scheduled'),
 ('Digital Literacy for Educators', 'Mr. Kwabena Frimpong', '2026-08-15', 25, 'Scheduled');
 
+-- --------------------------------------------------------
+-- Table structure for `users` (System Administrators / Staff)
+-- --------------------------------------------------------
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE `users` (
+  `id` INT AUTO_INCREMENT PRIMARY KEY,
+  `full_name` VARCHAR(100) NOT NULL,
+  `email` VARCHAR(100) NOT NULL UNIQUE,
+  `password` VARCHAR(255) NOT NULL,
+  `role` ENUM('Administrator', 'Teacher', 'Student') DEFAULT 'Administrator',
+  `status` ENUM('Active', 'Inactive') DEFAULT 'Active',
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Seed Admin User Credentials
+-- Plain text demo password: admin123 (stored hashed & supported plain for demo)
+INSERT INTO `users` (`full_name`, `email`, `password`, `role`, `status`) VALUES
+('System Administrator', 'admin@edusync.edu', '$2y$10$8K1p/a0dL1LXMIg.hJz2rO6S1vK8wH0V4D7b4vH9iO.lX8pU2j9mC', 'Administrator', 'Active'),
+('University Admin', 'index@std.uwu.ac.lk', '$2y$10$8K1p/a0dL1LXMIg.hJz2rO6S1vK8wH0V4D7b4vH9iO.lX8pU2j9mC', 'Administrator', 'Active');
+
 SET FOREIGN_KEY_CHECKS = 1;
+
