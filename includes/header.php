@@ -1,5 +1,25 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Read theme setting (light / dark)
+$sysTheme = $_SESSION['system_theme'] ?? 'light';
+if ($sysTheme === 'dark') {
+    // If not set via DB query in page yet, check DB directly
+    if (isset($db) && $db !== null && isset($_SESSION['user_email'])) {
+        $stmtTh = $db->prepare("SELECT theme FROM user_preferences WHERE email = :email LIMIT 1");
+        $stmtTh->execute([':email' => $_SESSION['user_email']]);
+        $prefTh = $stmtTh->fetch();
+        if ($prefTh && !empty($prefTh['theme'])) {
+            $sysTheme = $prefTh['theme'];
+            $_SESSION['system_theme'] = $sysTheme;
+        }
+    }
+}
+?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="<?php echo htmlspecialchars($sysTheme); ?>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
