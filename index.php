@@ -1,8 +1,11 @@
 <?php
-/**
- * EDUsync School Management System - Main Dashboard
- * Top KPI Cards displaying 100% Real Live Database Data.
- */
+session_start();
+
+// Redirect to login page if user is not logged in
+if (!isset($_SESSION['user_email'])) {
+    header("Location: login.php");
+    exit;
+}
 
 require_once __DIR__ . '/classes/Dashboard.php';
 
