@@ -91,7 +91,7 @@ include_once __DIR__ . '/includes/sidebar.php';
                     <span style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text-muted);">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
                     </span>
-                    <input type="text" name="search" class="filter-input" placeholder="Search by student name, code, admission no, class..." value="<?php echo htmlspecialchars($search); ?>">
+                    <input type="text" name="search" class="filter-input" placeholder="Search class allocation..." value="<?php echo htmlspecialchars($search); ?>">
                 </div>
 
                 <?php if ($search): ?>
