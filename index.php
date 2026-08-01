@@ -68,7 +68,7 @@ include_once __DIR__ . '/includes/sidebar.php';
                 </div>
                 <div class="stat-main">
                     <div class="stat-value"><?php echo number_format($metrics['total_courses']); ?></div>
-                    <div class="stat-label">Total Courses</div>
+                    <div class="stat-label">Total Subjects</div>
                 </div>
             </div>
 
@@ -101,11 +101,11 @@ include_once __DIR__ . '/includes/sidebar.php';
                 </div>
             </div>
 
-            <!-- Course Distribution -->
+            <!-- Subject Distribution -->
             <div class="dash-card card-small">
                 <div class="dash-card-header">
                     <div>
-                        <h2 class="dash-card-title">Course Distribution</h2>
+                        <h2 class="dash-card-title">Subject Distribution</h2>
                         <span class="dash-card-subtitle">By enrollment count</span>
                     </div>
                 </div>
