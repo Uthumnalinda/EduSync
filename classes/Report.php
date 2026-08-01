@@ -64,6 +64,7 @@ class Report {
         $stmtMarks->execute([':student_id' => $studentId]);
         $marks = $stmtMarks->fetchAll(PDO::FETCH_ASSOC);
 
+        // Group marks by term
         $groupedMarks = ['Term 1' => [], 'Term 2' => [], 'Term 3' => []];
         $termTotals = ['Term 1' => 0, 'Term 2' => 0, 'Term 3' => 0];
         $termCounts = ['Term 1' => 0, 'Term 2' => 0, 'Term 3' => 0];
