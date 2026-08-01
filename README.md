@@ -34,7 +34,7 @@ School Management Dashboard/
 ├── index.php                # Main Dashboard View
 ├── students.php             # Students Module Starter
 ├── teachers.php             # Teachers Module Starter
-├── courses.php              # Courses Module Starter
+├── subject.php              # Subjects Module Directory
 ├── enrollments.php          # Enrollments Module Starter
 ├── reports.php              # Reports & Analytics Starter
 ├── settings.php             # System Settings Starter
