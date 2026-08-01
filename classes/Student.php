@@ -57,6 +57,65 @@ class Student {
     }
 
     /**
+     * Validate student form data fields
+     */
+    public function validate($data, $id = 0) {
+        $errors = [];
+
+        // First Name & Last Name
+        if (empty($data['first_name']) || strlen(trim($data['first_name'])) < 2) {
+            $errors[] = "First name must be at least 2 characters.";
+        }
+        if (empty($data['last_name']) || strlen(trim($data['last_name'])) < 2) {
+            $errors[] = "Last name must be at least 2 characters.";
+        }
+
+        // Email validation & uniqueness
+        if (empty($data['email']) || !filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+            $errors[] = "Please provide a valid student email address.";
+        } else {
+            $stmt = $this->db->prepare("SELECT id FROM students WHERE email = :email AND id != :id LIMIT 1");
+            $stmt->execute([':email' => trim($data['email']), ':id' => $id]);
+            if ($stmt->fetch()) {
+                $errors[] = "Email address '{$data['email']}' is already registered to another student.";
+            }
+        }
+
+        // Student Phone validation (10 Digits)
+        if (!empty($data['phone'])) {
+            $cleanPhone = preg_replace('/[^0-9]/', '', trim($data['phone']));
+            if (strlen($cleanPhone) !== 10) {
+                $errors[] = "Student phone number must be exactly 10 digits (e.g. 0771234567).";
+            }
+        }
+
+        // Guardian Name & Phone validation (10 Digits)
+        if (empty($data['guardian_name']) || strlen(trim($data['guardian_name'])) < 2) {
+            $errors[] = "Guardian name is required.";
+        }
+        if (empty($data['guardian_phone'])) {
+            $errors[] = "Guardian phone number is required.";
+        } else {
+            $cleanGPhone = preg_replace('/[^0-9]/', '', trim($data['guardian_phone']));
+            if (strlen($cleanGPhone) !== 10) {
+                $errors[] = "Guardian phone number must be exactly 10 digits (e.g. 0771234567).";
+            }
+        }
+
+        // Date of Birth validation
+        if (empty($data['dob']) || strtotime($data['dob']) >= time()) {
+            $errors[] = "Please enter a valid past Date of Birth.";
+        }
+
+        // Grade validation
+        if (empty($data['grade'])) {
+            $errors[] = "Grade is required.";
+        }
+
+        return $errors;
+    }
+
+    /**
      * Create new student
      */
     public function create($data) {

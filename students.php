@@ -10,26 +10,36 @@ $message = '';
 $error = '';
 
 // Handle Actions (Add, Edit, Delete)
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
     $action = $_POST['action'] ?? '';
 
     if ($action === 'create') {
-        $result = $studentService->create($_POST);
-        if ($result) {
-            $message = "Student record created successfully!";
+        $validationErrors = $studentService->validate($_POST);
+        if (!empty($validationErrors)) {
+            $error = implode("<br>", $validationErrors);
         } else {
-            $error = "Failed to create student record. Email or code might already exist.";
+            $result = $studentService->create($_POST);
+            if ($result) {
+                $message = "Student record created successfully!";
+            } else {
+                $error = "Failed to create student record. Please try again.";
+            }
         }
     } elseif ($action === 'update') {
-        $id = $_POST['id'] ?? 0;
-        $result = $studentService->update($id, $_POST);
-        if ($result) {
-            $message = "Student record updated successfully!";
+        $id = (int)($_POST['id'] ?? 0);
+        $validationErrors = $studentService->validate($_POST, $id);
+        if (!empty($validationErrors)) {
+            $error = implode("<br>", $validationErrors);
         } else {
-            $error = "Failed to update student record.";
+            $result = $studentService->update($id, $_POST);
+            if ($result) {
+                $message = "Student record updated successfully!";
+            } else {
+                $error = "Failed to update student record.";
+            }
         }
     } elseif ($action === 'delete') {
-        $id = $_POST['id'] ?? 0;
+        $id = (int)($_POST['id'] ?? 0);
         $result = $studentService->delete($id);
         if ($result) {
             $message = "Student record deleted successfully!";
@@ -146,27 +156,27 @@ include_once __DIR__ . '/includes/sidebar.php';
                                         <div style="font-weight: 600; color: var(--text-main);"><?php echo htmlspecialchars($st['first_name'] . ' ' . $st['last_name']); ?></div>
                                         <div style="font-size: 12px; color: var(--text-muted);"><?php echo htmlspecialchars($st['gender'] . ' • ' . $st['dob']); ?></div>
                                     </td>
-                                    <td style="padding: 16px 20px;">
-                                        <span class="status-badge" style="background: rgba(37, 99, 235, 0.1); color: #2563eb; font-weight: 700;">
+                                    <td style="padding: 16px 20px; white-space: nowrap;">
+                                        <span class="subject-badge">
                                             <?php echo htmlspecialchars($st['grade']); ?>
                                         </span>
                                     </td>
                                     <td style="padding: 16px 20px;">
-                                        <div style="color: var(--text-main); font-size: 13px;"><?php echo htmlspecialchars($st['email']); ?></div>
-                                        <div style="font-size: 12px; color: var(--text-muted);"><?php echo htmlspecialchars($st['phone']); ?></div>
+                                        <div style="color: var(--text-main); font-size: 13px; font-weight: 500;"><?php echo htmlspecialchars($st['email']); ?></div>
+                                        <div style="font-size: 12px; color: var(--text-muted); font-weight: 500;"><?php echo htmlspecialchars($st['phone']); ?></div>
                                     </td>
                                     <td style="padding: 16px 20px;">
-                                        <div style="color: var(--text-main); font-size: 13px;"><?php echo htmlspecialchars($st['guardian_name']); ?></div>
-                                        <div style="font-size: 12px; color: var(--text-muted);"><?php echo htmlspecialchars($st['guardian_phone']); ?></div>
+                                        <div style="color: var(--text-main); font-size: 13px; font-weight: 500;"><?php echo htmlspecialchars($st['guardian_name']); ?></div>
+                                        <div style="font-size: 12px; color: var(--text-muted); font-weight: 500;"><?php echo htmlspecialchars($st['guardian_phone']); ?></div>
                                     </td>
-                                    <td style="padding: 16px 20px;">
+                                    <td style="padding: 16px 20px; white-space: nowrap;">
                                         <?php if ($st['status'] === 'Active'): ?>
                                             <span class="status-badge status-active">Active</span>
                                         <?php else: ?>
                                             <span class="status-badge status-inactive">Inactive</span>
                                         <?php endif; ?>
                                     </td>
-                                    <td style="padding: 16px 20px; text-align: right;">
+                                    <td style="padding: 16px 20px; text-align: right; white-space: nowrap;">
                                         <div style="display: flex; align-items: center; justify-content: flex-end; gap: 8px;">
                                             <button type="button" class="btn btn-secondary btn-sm edit-student-btn" 
                                                     data-student='<?php echo json_encode($st, JSON_HEX_APOS | JSON_HEX_QUOT); ?>'>
@@ -232,8 +242,8 @@ include_once __DIR__ . '/includes/sidebar.php';
                             <input type="email" name="email" id="email" class="login-input" style="height: 42px; background: var(--card-bg); border: 1px solid var(--card-border); color: var(--text-main);" required>
                         </div>
                         <div class="input-field-group">
-                            <label class="input-label">Phone Number *</label>
-                            <input type="text" name="phone" id="phone" class="login-input" style="height: 42px; background: var(--card-bg); border: 1px solid var(--card-border); color: var(--text-main);" required>
+                            <label class="input-label">Phone Number (10 Digits)</label>
+                            <input type="text" name="phone" id="phone" class="login-input" style="height: 42px; background: var(--card-bg); border: 1px solid var(--card-border); color: var(--text-main);" placeholder="e.g. 0771234567" pattern="[0-9]{10}" maxlength="10" title="Please enter exactly 10 digits">
                         </div>
                     </div>
 
@@ -257,8 +267,8 @@ include_once __DIR__ . '/includes/sidebar.php';
                             <input type="text" name="guardian_name" id="guardianName" class="login-input" style="height: 42px; background: var(--card-bg); border: 1px solid var(--card-border); color: var(--text-main);" required>
                         </div>
                         <div class="input-field-group">
-                            <label class="input-label">Guardian Phone *</label>
-                            <input type="text" name="guardian_phone" id="guardianPhone" class="login-input" style="height: 42px; background: var(--card-bg); border: 1px solid var(--card-border); color: var(--text-main);" required>
+                            <label class="input-label">Guardian Phone (10 Digits) *</label>
+                            <input type="text" name="guardian_phone" id="guardianPhone" class="login-input" style="height: 42px; background: var(--card-bg); border: 1px solid var(--card-border); color: var(--text-main);" placeholder="e.g. 0771234567" pattern="[0-9]{10}" maxlength="10" title="Please enter exactly 10 digits" required>
                         </div>
                     </div>
 
