@@ -5,9 +5,14 @@
 /* ==========================================
    Global Scrollbar Hiding (Maintains Scrolling)
    ========================================== */
-html, body, *, ::-webkit-scrollbar {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+html,
+body,
+*,
+::-webkit-scrollbar {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
 }
 
 ::-webkit-scrollbar {
@@ -38,7 +43,7 @@ html, body, *, ::-webkit-scrollbar {
   --sidebar-active: #2563eb;
 
   /* Surface & Body Colors */
-  --body-bg: #f8fafc;
+  --body-bg: #f3f9ff;
   --card-bg: #ffffff;
   --card-border: #e2e8f0;
   --text-main: #0f172a;
@@ -434,15 +439,41 @@ body {
 
 /* Bell Ringing Animation for Unread Notifications */
 @keyframes bellRing {
-  0% { transform: rotate(0); }
-  10% { transform: rotate(18deg); }
-  20% { transform: rotate(-16deg); }
-  30% { transform: rotate(12deg); }
-  40% { transform: rotate(-10deg); }
-  50% { transform: rotate(6deg); }
-  60% { transform: rotate(-4deg); }
-  70% { transform: rotate(0); }
-  100% { transform: rotate(0); }
+  0% {
+    transform: rotate(0);
+  }
+
+  10% {
+    transform: rotate(18deg);
+  }
+
+  20% {
+    transform: rotate(-16deg);
+  }
+
+  30% {
+    transform: rotate(12deg);
+  }
+
+  40% {
+    transform: rotate(-10deg);
+  }
+
+  50% {
+    transform: rotate(6deg);
+  }
+
+  60% {
+    transform: rotate(-4deg);
+  }
+
+  70% {
+    transform: rotate(0);
+  }
+
+  100% {
+    transform: rotate(0);
+  }
 }
 
 .navbar-bell-btn.has-unread svg {
@@ -555,9 +586,17 @@ body {
   flex-shrink: 0;
 }
 
-.dot-green { background: #10b981; }
-.dot-amber { background: #f59e0b; }
-.dot-blue { background: #2563eb; }
+.dot-green {
+  background: #10b981;
+}
+
+.dot-amber {
+  background: #f59e0b;
+}
+
+.dot-blue {
+  background: #2563eb;
+}
 
 .notif-content {
   display: flex;
@@ -751,6 +790,7 @@ body {
     opacity: 0;
     transform: translateY(-8px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -982,14 +1022,17 @@ body {
   background: linear-gradient(145deg, #ffffff 0%, #f4f8ff 100%);
   border-color: #dbeafe;
 }
+
 .card-green-theme {
   background: linear-gradient(145deg, #ffffff 0%, #f0fdf4 100%);
   border-color: #d1fae5;
 }
+
 .card-yellow-theme {
   background: linear-gradient(145deg, #ffffff 0%, #fffdf0 100%);
   border-color: #fef3c7;
 }
+
 .card-purple-theme {
   background: linear-gradient(145deg, #ffffff 0%, #faf5ff 100%);
   border-color: #ede9fe;
@@ -1000,21 +1043,26 @@ body {
   background: linear-gradient(145deg, #1e293b 0%, #1e3a8a 100%);
   border-color: #1e40af;
 }
+
 [data-theme="dark"] .card-green-theme {
   background: linear-gradient(145deg, #1e293b 0%, #064e3b 100%);
   border-color: #065f46;
 }
+
 [data-theme="dark"] .card-yellow-theme {
   background: linear-gradient(145deg, #1e293b 0%, #78350f 100%);
   border-color: #92400e;
 }
+
 [data-theme="dark"] .card-purple-theme {
   background: linear-gradient(145deg, #1e293b 0%, #4c1d95 100%);
   border-color: #5b21b6;
 }
+
 [data-theme="dark"] .stat-value {
   color: #f8fafc;
 }
+
 [data-theme="dark"] .stat-label {
   color: #cbd5e1;
 }
@@ -1024,10 +1072,21 @@ body {
   box-shadow: 0 20px 30px -8px rgba(15, 23, 42, 0.1), 0 8px 15px -3px rgba(15, 23, 42, 0.05);
 }
 
-.card-blue-theme:hover { border-color: #93c5fd; }
-.card-green-theme:hover { border-color: #6ee7b7; }
-.card-yellow-theme:hover { border-color: #fde047; }
-.card-purple-theme:hover { border-color: #c4b5fd; }
+.card-blue-theme:hover {
+  border-color: #93c5fd;
+}
+
+.card-green-theme:hover {
+  border-color: #6ee7b7;
+}
+
+.card-yellow-theme:hover {
+  border-color: #fde047;
+}
+
+.card-purple-theme:hover {
+  border-color: #c4b5fd;
+}
 
 .stat-top {
   display: flex;
@@ -1086,10 +1145,29 @@ body {
   letter-spacing: 0.02em;
 }
 
-.badge-blue { background: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; }
-.badge-green { background: #ecfdf5; color: #059669; border: 1px solid #a7f3d0; }
-.badge-yellow { background: #fffbeb; color: #b45309; border: 1px solid #fde68a; }
-.badge-purple { background: #f5f3ff; color: #6d28d9; border: 1px solid #ddd6fe; }
+.badge-blue {
+  background: #eff6ff;
+  color: #2563eb;
+  border: 1px solid #bfdbfe;
+}
+
+.badge-green {
+  background: #ecfdf5;
+  color: #059669;
+  border: 1px solid #a7f3d0;
+}
+
+.badge-yellow {
+  background: #fffbeb;
+  color: #b45309;
+  border: 1px solid #fde68a;
+}
+
+.badge-purple {
+  background: #f5f3ff;
+  color: #6d28d9;
+  border: 1px solid #ddd6fe;
+}
 
 .stat-main {
   margin-bottom: 0;
@@ -1128,7 +1206,9 @@ body {
 }
 
 @media (max-width: 1024px) {
-  .row-middle, .row-bottom {
+
+  .row-middle,
+  .row-bottom {
     grid-template-columns: 1fr;
   }
 }
@@ -1634,9 +1714,11 @@ body {
     height: auto;
     max-width: 440px;
   }
+
   .login-right {
     display: none;
   }
+
   .login-left {
     flex: 0 0 100%;
     width: 100%;
@@ -1819,4 +1901,83 @@ body {
   .form-grid-2 {
     grid-template-columns: 1fr;
   }
+}
+
+/* ==========================================
+   Datatable & Status/Subject Badge System
+   ========================================== */
+.students-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-family: var(--font-body);
+  font-size: 14px;
+}
+
+.students-table th {
+  background: #f8fafc;
+  color: #64748b;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 14px 20px;
+  border-bottom: 1px solid #e2e8f0;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.students-table td {
+  padding: 16px 20px;
+  border-bottom: 1px solid #f1f5f9;
+  vertical-align: middle;
+  color: var(--text-main);
+  background: #ffffff;
+  transition: background-color 0.15s ease;
+}
+
+.students-table tr:last-child td {
+  border-bottom: none;
+}
+
+.students-table tr:hover td {
+  background: #f8fafc;
+}
+
+/* Status & Subject Badges */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.status-badge.status-active {
+  background: #dcfce7 !important;
+  color: #15803d !important;
+  border: 1px solid #bbf7d0 !important;
+}
+
+.status-badge.status-inactive {
+  background: #fee2e2 !important;
+  color: #b91c1c !important;
+  border: 1px solid #fecaca !important;
+}
+
+.subject-badge {
+  display: inline-block !important;
+  white-space: nowrap !important;
+  padding: 6px 14px !important;
+  border-radius: 20px !important;
+  background: #eff6ff !important;
+  color: #2563eb !important;
+  border: 1px solid #bfdbfe !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  text-align: center !important;
 }
