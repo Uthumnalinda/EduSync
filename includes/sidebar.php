@@ -45,8 +45,8 @@ $current_page = basename($_SERVER['SCRIPT_NAME']);
                 </a>
             </li>
 
-            <li class="nav-item <?php echo ($current_page == 'courses.php') ? 'active' : ''; ?>">
-                <a href="courses.php">
+            <li class="nav-item <?php echo ($current_page == 'subject.php') ? 'active' : ''; ?>">
+                <a href="subject.php">
                     <span class="nav-icon">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
                     </span>
