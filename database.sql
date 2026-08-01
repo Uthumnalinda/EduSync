@@ -1,4 +1,4 @@
--- School Management Database Schema for EDUsync
+-- School Management Database Schema for EDUsync (Sri Lanka School Edition)
 -- Compatible with XAMPP MySQL / MariaDB
 
 SET FOREIGN_KEY_CHECKS = 0;
@@ -29,16 +29,14 @@ CREATE TABLE `students` (
   `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Seed data for `students`
+-- Seed data for `students` (Sri Lankan School Format)
 INSERT INTO `students` (`student_code`, `adm_no`, `first_name`, `last_name`, `dob`, `gender`, `email`, `phone`, `address`, `guardian_name`, `guardian_phone`, `grade`, `status`) VALUES
-('S001', 'ADM2024001', 'Amara', 'Osei', '2009-03-14', 'Female', 'amara.osei@edusync.edu', '0712345678', '14 Maple Ave, Accra', 'Kwame Osei', '0201234567', 'Grade 10', 'Active'),
-('S002', 'ADM2024002', 'James', 'Mensah', '2008-07-22', 'Male', 'james.mensah@edusync.edu', '0723456789', '5 Palm St, Kumasi', 'Ama Mensah', '0202345678', 'Grade 11', 'Active'),
-('S003', 'ADM2024003', 'Fatima', 'Al-Hassan', '2009-11-05', 'Female', 'fatima.alhassan@edusync.edu', '0734567890', '22 River Rd, Tamale', 'Ibrahim Al-Hassan', '0203456789', 'Grade 10', 'Active'),
-('S004', 'ADM2024004', 'Kofi', 'Boateng', '2007-01-18', 'Male', 'kofi.boateng@edusync.edu', '0745678901', '3 Hill Close, Cape Coast', 'Esi Boateng', '0204567890', 'Grade 12', 'Inactive'),
-('S005', 'ADM2024005', 'Abena', 'Kyei', '2010-05-30', 'Female', 'abena.kyei@edusync.edu', '0756789012', '8 Green Lane, Takoradi', 'Yaw Kyei', '0205678901', 'Grade 9', 'Active'),
-('S006', 'ADM2024006', 'Daniel', 'Tetteh', '2008-09-12', 'Male', 'daniel.tetteh@edusync.edu', '0767890123', '17 Beach Rd, Tema', 'Akua Tetteh', '0206789012', 'Grade 11', 'Active'),
-('S007', 'ADM2024007', 'Nana', 'Agyeman', '2009-02-28', 'Female', 'nana.agyeman@edusync.edu', '0778901234', '9 Unity Rd, Ho', 'Kojo Agyeman', '0207890123', 'Grade 10', 'Active'),
-('S008', 'ADM2024008', 'Kwesi', 'Darko', '2007-12-03', 'Male', 'kwesi.darko@edusync.edu', '0789012345', '6 School Ave, Wa', 'Adwoa Darko', '0208901234', 'Grade 12', 'Active');
+('S001', 'ADM2024001', 'Kasun', 'Fernando', '2009-03-14', 'Male', 'kasun.fernando@edusync.lk', '0771122334', 'No. 10, Kandy Rd, Peradeniya', 'Nimal Fernando', '0719988776', 'Grade 10', 'Active'),
+('S002', 'ADM2024002', 'Dilhani', 'Perera', '2008-07-22', 'Female', 'dilhani.perera@edusync.lk', '0712233445', '25/1, Main St, Galle', 'Saman Perera', '0778877665', 'Grade 11', 'Active'),
+('S003', 'ADM2024003', 'Sahan', 'Silva', '2009-11-05', 'Male', 'sahan.silva@edusync.lk', '0753344556', 'No. 8, Temple Rd, Kelaniya', 'Kanthi Silva', '0757766554', 'Grade 10', 'Active'),
+('S004', 'ADM2024004', 'Piumi', 'Bandara', '2007-01-18', 'Female', 'piumi.bandara@edusync.lk', '0784455667', '14, Lake Rd, Kurunegala', 'Dhammika Bandara', '0786655443', 'Grade 12', 'Inactive'),
+('S005', 'ADM2024005', 'Ruwan', 'Jayawardena', '2010-05-30', 'Male', 'ruwan.jayawardena@edusync.lk', '0705566778', 'No. 50, Station Rd, Badulla', 'Mahinda Jayawardena', '0705544332', 'Grade 9', 'Active'),
+('S006', 'ADM2024006', 'Tharushi', 'Wickramasinghe', '2008-09-12', 'Female', 'tharushi.w@edusync.lk', '0776677889', '88, Highlevel Rd, Maharagama', 'Sunil Wickramasinghe', '0714455667', 'Grade 11', 'Active');
 
 -- --------------------------------------------------------
 -- Table structure for `teachers`
@@ -61,13 +59,13 @@ CREATE TABLE `teachers` (
   `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Seed data for `teachers`
+-- Seed data for `teachers` (Sri Lankan School Format)
 INSERT INTO `teachers` (`teacher_code`, `first_name`, `last_name`, `nic`, `subject`, `qualification`, `email`, `phone`, `address`, `date_joined`, `salary`, `status`) VALUES
-('T001', 'Ama', 'Asante', 'GHA-1234567', 'Mathematics', 'PhD Mathematics', 'ama.asante@edusync.edu', '0201234567', '12 Faculty Row, Accra', '2018-09-01', 4500.00, 'Active'),
-('T002', 'Kwabena', 'Frimpong', 'GHA-2345678', 'English Language', 'M.Ed English', 'kwabena.frimpong@edusync.edu', '0202345678', '7 Staff Close, Kumasi', '2019-01-15', 3800.00, 'Active'),
-('T003', 'Akosua', 'Nyarko', 'GHA-3456789', 'Biology', 'BSc Biology', 'akosua.nyarko@edusync.edu', '0203456789', '3 Oak Crescent, Accra', '2020-08-20', 3500.00, 'Active'),
-('T004', 'Yaw', 'Owusu', 'GHA-4567890', 'Physics', 'MSc Physics', 'yaw.owusu@edusync.edu', '0204567890', '15 Science Ave, Tema', '2017-03-10', 4200.00, 'Active'),
-('T005', 'Efua', 'Aidoo', 'GHA-5678901', 'History', 'MA History', 'efua.aidoo@edusync.edu', '0205678901', '2 Heritage Lane, Cape Coast', '2021-09-01', 3600.00, 'Inactive');
+('T001', 'Kamal', 'Perera', '198514209876', 'Mathematics', 'B.Sc. (Hons) Mathematics, Dip.Ed', 'kamal.perera@edusync.lk', '0771234567', 'No. 45, Kandy Road, Kurunegala', '2018-09-01', 75000.00, 'Active'),
+('T002', 'Nimali', 'Fernando', '199068403210', 'English Language', 'B.A. (Hons) English, M.Ed', 'nimali.fernando@edusync.lk', '0712345678', '12/A, Station Road, Badulla', '2019-01-15', 68000.00, 'Active'),
+('T003', 'Sunil', 'Silva', '198223004567', 'Biology', 'B.Sc. Bio Science', 'sunil.silva@edusync.lk', '0753456789', 'No. 88, Galle Road, Colombo 03', '2020-08-20', 65000.00, 'Active'),
+('T004', 'Wathsala', 'Bandara', '198859102345', 'Physics', 'B.Sc. Physical Science', 'wathsala.bandara@edusync.lk', '0784567890', '25, Temple Road, Passara', '2017-03-10', 72000.00, 'Active'),
+('T005', 'Dinesh', 'Jayasinghe', '198912405678', 'History', 'B.A. History', 'dinesh.jayasinghe@edusync.lk', '0705678901', 'No. 14, Main Street, Bandarawela', '2021-09-01', 62000.00, 'Inactive');
 
 -- --------------------------------------------------------
 -- Table structure for `courses`
@@ -88,12 +86,11 @@ CREATE TABLE `courses` (
 
 -- Seed data for `courses`
 INSERT INTO `courses` (`course_code`, `course_name`, `description`, `teacher_id`, `grade`, `credits`, `duration`) VALUES
-('MATH301', 'Advanced Mathematics', 'Calculus, algebra, and statistics for senior students', 1, 'Grade 12', 4, '40 weeks'),
-('ENG201', 'English Literature', 'Comprehensive study of literary works and composition', 2, 'Grade 11', 3, '40 weeks'),
-('BIO101', 'General Biology', 'Fundamentals of life sciences and ecosystems', 3, 'Grade 10', 3, '40 weeks'),
-('PHY201', 'Applied Physics', 'Mechanics, thermodynamics, and electromagnetism', 4, 'Grade 11', 4, '40 weeks'),
-('HIS101', 'World History', 'African and world history from ancient to modern', 5, 'Grade 9', 2, '40 weeks'),
-('MATH101', 'Foundation Mathematics', 'Core mathematical concepts for junior students', 1, 'Grade 9', 3, '40 weeks');
+('MATH101', 'Mathematics Grade 10', 'Algebra, Geometry, and Trigonometry', 1, 'Grade 10', 4, '40 weeks'),
+('ENG201', 'English Language', 'Grammar, Literature, and Essay Writing', 2, 'Grade 11', 3, '40 weeks'),
+('BIO301', 'Biology', 'Cell Biology, Genetics, and Human Physiology', 3, 'Grade 10', 4, '40 weeks'),
+('PHY401', 'Physics', 'Mechanics, Electricity, and Thermodynamics', 4, 'Grade 12', 4, '40 weeks'),
+('HIS101', 'History', 'Sri Lankan and World History Studies', 5, 'Grade 9', 3, '40 weeks');
 
 -- --------------------------------------------------------
 -- Table structure for `enrollments`
@@ -104,42 +101,38 @@ CREATE TABLE `enrollments` (
   `student_id` INT NOT NULL,
   `course_id` INT NOT NULL,
   `enrollment_date` DATE NOT NULL,
-  `status` ENUM('Active', 'Dropped', 'Completed') DEFAULT 'Active',
+  `status` ENUM('Enrolled', 'Completed', 'Dropped') DEFAULT 'Enrolled',
   `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (`student_id`) REFERENCES `students`(`id`) ON DELETE CASCADE,
   FOREIGN KEY (`course_id`) REFERENCES `courses`(`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Seed data for `enrollments`
 INSERT INTO `enrollments` (`student_id`, `course_id`, `enrollment_date`, `status`) VALUES
-(1, 1, '2024-09-02', 'Active'),
-(2, 2, '2024-09-02', 'Active'),
-(3, 3, '2024-09-03', 'Active'),
-(4, 4, '2024-09-03', 'Dropped'),
-(5, 5, '2024-09-04', 'Active'),
-(6, 4, '2024-09-04', 'Active'),
-(7, 3, '2024-09-05', 'Active'),
-(8, 1, '2024-09-05', 'Active');
+(1, 1, '2024-01-10', 'Enrolled'),
+(1, 3, '2024-01-10', 'Enrolled'),
+(2, 2, '2024-01-12', 'Enrolled'),
+(3, 1, '2024-01-15', 'Enrolled'),
+(4, 4, '2024-01-08', 'Completed');
 
 -- --------------------------------------------------------
--- Table structure for `events`
+-- Table structure for `notifications`
 -- --------------------------------------------------------
-DROP TABLE IF EXISTS `events`;
-CREATE TABLE `events` (
+DROP TABLE IF EXISTS `notifications`;
+CREATE TABLE `notifications` (
   `id` INT AUTO_INCREMENT PRIMARY KEY,
   `title` VARCHAR(100) NOT NULL,
-  `event_date` DATE NOT NULL,
-  `event_time` VARCHAR(30) NOT NULL,
-  `location` VARCHAR(100) NOT NULL,
-  `category` VARCHAR(50) NOT NULL,
+  `message` TEXT NOT NULL,
+  `type` VARCHAR(30) NOT NULL DEFAULT 'student',
+  `is_read` TINYINT(1) DEFAULT 0,
+  `ref_student_id` INT DEFAULT NULL,
   `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `events` (`title`, `event_date`, `event_time`, `location`, `category`) VALUES
-('Parent-Teacher Association Meeting', '2026-08-05', '10:00 AM', 'Main Auditorium', 'Meeting'),
-('Annual Science Fair 2026', '2026-08-12', '09:00 AM', 'Science Complex', 'Exhibition'),
-('Mid-Term Examinations Begin', '2026-08-18', '08:30 AM', 'All Classrooms', 'Academics'),
-('Inter-School Sports Gala', '2026-08-25', '08:00 AM', 'Sports Complex', 'Sports');
+-- Seed Data for `notifications`
+INSERT INTO `notifications` (`title`, `message`, `type`, `is_read`, `ref_student_id`) VALUES
+('New Student Registered', 'Kasun Fernando was enrolled in Grade 10', 'student', 0, 1),
+('New Student Registered', 'Dilhani Perera was enrolled in Grade 11', 'student', 0, 2),
+('New Student Registered', 'Sahan Silva was enrolled in Grade 10', 'student', 0, 3);
 
 -- --------------------------------------------------------
 -- Table structure for `activities`
@@ -155,9 +148,9 @@ CREATE TABLE `activities` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO `activities` (`user_name`, `action`, `time_ago`, `icon_type`) VALUES
-('Dr. Ama Asante', 'Graded MATH301 Mid-term Assignments', '10 mins ago', 'grade'),
-('Kwame Admin', 'Enrolled 3 new students in Grade 10', '45 mins ago', 'student'),
-('Mr. Yaw Owusu', 'Updated Physics Lab timetable', '2 hours ago', 'course'),
+('Mr. Kamal Perera', 'Graded MATH101 Mid-term Assignments', '10 mins ago', 'grade'),
+('Admin Staff', 'Enrolled 3 new students in Grade 10', '45 mins ago', 'student'),
+('Mr. Sunil Silva', 'Updated Biology Lab timetable', '2 hours ago', 'course'),
 ('System Administrator', 'Completed weekly database backup', '5 hours ago', 'system');
 
 -- --------------------------------------------------------
@@ -175,8 +168,8 @@ CREATE TABLE `workshops` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO `workshops` (`title`, `instructor`, `scheduled_date`, `capacity`, `status`) VALUES
-('STEM Leadership & Robotics Workshop', 'Dr. Ama Asante', '2026-08-10', 40, 'Scheduled'),
-('Digital Literacy for Educators', 'Mr. Kwabena Frimpong', '2026-08-15', 25, 'Scheduled');
+('STEM Leadership & Science Workshop', 'Mr. Kamal Perera', '2026-08-10', 40, 'Scheduled'),
+('Digital Literacy for Educators', 'Mrs. Nimali Fernando', '2026-08-15', 25, 'Scheduled');
 
 -- --------------------------------------------------------
 -- Table structure for `users` (System Administrators / Staff)
@@ -193,10 +186,8 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Seed Admin User Credentials
--- Plain text demo password: admin123 (stored hashed & supported plain for demo)
 INSERT INTO `users` (`full_name`, `email`, `password`, `role`, `status`) VALUES
 ('System Administrator', 'admin@edusync.edu', '$2y$10$8K1p/a0dL1LXMIg.hJz2rO6S1vK8wH0V4D7b4vH9iO.lX8pU2j9mC', 'Administrator', 'Active'),
 ('University Admin', 'index@std.uwu.ac.lk', '$2y$10$8K1p/a0dL1LXMIg.hJz2rO6S1vK8wH0V4D7b4vH9iO.lX8pU2j9mC', 'Administrator', 'Active');
 
 SET FOREIGN_KEY_CHECKS = 1;
-
