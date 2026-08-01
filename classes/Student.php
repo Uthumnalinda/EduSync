@@ -204,8 +204,83 @@ class Student {
      * Get distinct grades for filter dropdown
      */
     public function getGrades() {
+        if ($this->db === null) return [];
         $stmt = $this->db->query("SELECT DISTINCT grade FROM students ORDER BY grade ASC");
         return $stmt->fetchAll(PDO::FETCH_COLUMN);
+    }
+
+    /**
+     * Get current active Academic Year setting
+     */
+    public function getAcademicYear() {
+        if ($this->db === null) return '2024/2025';
+        $stmt = $this->db->prepare("SELECT setting_value FROM system_settings WHERE setting_key = 'academic_year' LIMIT 1");
+        $stmt->execute();
+        $val = $stmt->fetchColumn();
+        return $val ?: '2024/2025';
+    }
+
+    /**
+     * Advance to Next Academic Year (Rollover Logic)
+     * - Teachers: Remain 100% active (untouched)
+     * - Grade 13 Students: Status changed to 'Completed A/L' (School Leavers)
+     * - Grade 12 Students: Promoted to Grade 13
+     */
+    public function advanceAcademicYear($nextYear) {
+        if ($this->db === null) return false;
+        try {
+            $this->db->beginTransaction();
+
+            // 1. Change Grade 13 active students to 'Completed A/L'
+            $stmt13 = $this->db->prepare("UPDATE students SET status = 'Completed A/L' WHERE grade LIKE '%Grade 13%' AND status = 'Active'");
+            $stmt13->execute();
+
+            // 2. Promote Grade 12 active students to Grade 13
+            $stmt12 = $this->db->prepare("UPDATE students SET grade = REPLACE(grade, 'Grade 12', 'Grade 13') WHERE grade LIKE '%Grade 12%' AND status = 'Active'");
+            $stmt12->execute();
+
+            // 3. Update active academic year in system_settings
+            $stmtSet = $this->db->prepare("INSERT INTO system_settings (setting_key, setting_value) VALUES ('academic_year', :ny) ON DUPLICATE KEY UPDATE setting_value = :ny2");
+            $stmtSet->execute([':ny' => $nextYear, ':ny2' => $nextYear]);
+
+            $this->db->commit();
+            return true;
+        } catch (Exception $e) {
+            if ($this->db->inTransaction()) {
+                $this->db->rollBack();
+            }
+            return false;
+        }
+    }
+
+    /**
+     * Revert / Reset Academic Year to Previous Session
+     */
+    public function revertAcademicYear($prevYear = '2024/2025') {
+        if ($this->db === null) return false;
+        try {
+            $this->db->beginTransaction();
+
+            // 1. Revert 'Completed A/L' status back to 'Active'
+            $stmtResetStatus = $this->db->prepare("UPDATE students SET status = 'Active' WHERE status = 'Completed A/L'");
+            $stmtResetStatus->execute();
+
+            // 2. Revert Grade 13 back to Grade 12 where applicable
+            $stmtResetGrade = $this->db->prepare("UPDATE students SET grade = REPLACE(grade, 'Grade 13', 'Grade 12') WHERE grade LIKE '%Grade 13%'");
+            $stmtResetGrade->execute();
+
+            // 3. Reset system_settings academic_year
+            $stmtSet = $this->db->prepare("INSERT INTO system_settings (setting_key, setting_value) VALUES ('academic_year', :py) ON DUPLICATE KEY UPDATE setting_value = :py2");
+            $stmtSet->execute([':py' => $prevYear, ':py2' => $prevYear]);
+
+            $this->db->commit();
+            return true;
+        } catch (Exception $e) {
+            if ($this->db->inTransaction()) {
+                $this->db->rollBack();
+            }
+            return false;
+        }
     }
 
     private function getNextAutoIncrement() {

@@ -100,9 +100,6 @@ include_once __DIR__ . '/includes/sidebar.php';
 
                 <select name="grade" class="filter-select" onchange="this.form.submit()">
                     <option value="">All Grades</option>
-                    <option value="Grade 9" <?php echo $gradeFilter === 'Grade 9' ? 'selected' : ''; ?>>Grade 9</option>
-                    <option value="Grade 10" <?php echo $gradeFilter === 'Grade 10' ? 'selected' : ''; ?>>Grade 10</option>
-                    <option value="Grade 11" <?php echo $gradeFilter === 'Grade 11' ? 'selected' : ''; ?>>Grade 11</option>
                     <option value="Grade 12" <?php echo $gradeFilter === 'Grade 12' ? 'selected' : ''; ?>>Grade 12</option>
                     <option value="Grade 13" <?php echo $gradeFilter === 'Grade 13' ? 'selected' : ''; ?>>Grade 13</option>
                 </select>
@@ -208,9 +205,6 @@ include_once __DIR__ . '/includes/sidebar.php';
                             <label class="input-label">Grade / Class Level *</label>
                             <select name="grade" id="grade" class="login-input" style="height: 42px; background: var(--card-bg); border: 1px solid var(--card-border); color: var(--text-main);" required>
                                 <option value="">Select Grade</option>
-                                <option value="Grade 9">Grade 9</option>
-                                <option value="Grade 10">Grade 10</option>
-                                <option value="Grade 11">Grade 11</option>
                                 <option value="Grade 12">Grade 12</option>
                                 <option value="Grade 13">Grade 13</option>
                             </select>

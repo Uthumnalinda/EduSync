@@ -111,6 +111,7 @@ include_once __DIR__ . '/includes/sidebar.php';
                 <select name="status" class="filter-select" onchange="this.form.submit()">
                     <option value="">All Statuses</option>
                     <option value="Active" <?php echo $statusFilter === 'Active' ? 'selected' : ''; ?>>Active</option>
+                    <option value="Completed A/L" <?php echo $statusFilter === 'Completed A/L' ? 'selected' : ''; ?>>Completed A/L (School Leavers)</option>
                     <option value="Inactive" <?php echo $statusFilter === 'Inactive' ? 'selected' : ''; ?>>Inactive</option>
                 </select>
 
@@ -172,6 +173,8 @@ include_once __DIR__ . '/includes/sidebar.php';
                                     <td style="padding: 16px 20px; white-space: nowrap;">
                                         <?php if ($st['status'] === 'Active'): ?>
                                             <span class="status-badge status-active">Active</span>
+                                        <?php elseif ($st['status'] === 'Completed A/L'): ?>
+                                            <span class="status-badge" style="background: #f3e8ff; color: #7e22ce; border: 1px solid #e9d5ff; font-weight: 700;">Completed A/L</span>
                                         <?php else: ?>
                                             <span class="status-badge status-inactive">Inactive</span>
                                         <?php endif; ?>
@@ -250,7 +253,7 @@ include_once __DIR__ . '/includes/sidebar.php';
                     <div class="form-grid-2" style="margin-top: 14px;">
                         <div class="input-field-group">
                             <label class="input-label">Grade / Class *</label>
-                            <input type="text" name="grade" id="grade" class="login-input" placeholder="e.g. Grade 10" style="height: 42px; background: var(--card-bg); border: 1px solid var(--card-border); color: var(--text-main);" required>
+                            <input type="text" name="grade" id="grade" class="login-input" placeholder="e.g. Grade 12 - Physical Science" style="height: 42px; background: var(--card-bg); border: 1px solid var(--card-border); color: var(--text-main);" required>
                         </div>
                         <div class="input-field-group">
                             <label class="input-label">Status *</label>

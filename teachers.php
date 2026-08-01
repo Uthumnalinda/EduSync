@@ -129,14 +129,14 @@ include_once __DIR__ . '/includes/sidebar.php';
                 <table class="students-table" style="width: 100%; border-collapse: collapse; font-size: 14px;">
                     <thead>
                         <tr style="background: var(--body-bg); border-bottom: 1px solid var(--card-border); text-align: left; color: var(--text-muted); font-size: 12px; font-weight: 700; text-transform: uppercase;">
-                            <th style="padding: 16px 20px;">Code / NIC</th>
-                            <th style="padding: 16px 20px;">Teacher Name</th>
-                            <th style="padding: 16px 20px;">Subject</th>
-                            <th style="padding: 16px 20px;">Contact</th>
-                            <th style="padding: 16px 20px;">Date Joined</th>
-                            <th style="padding: 16px 20px;">Salary</th>
-                            <th style="padding: 16px 20px;">Status</th>
-                            <th style="padding: 16px 20px; text-align: right;">Actions</th>
+                            <th style="padding: 10px 10px; white-space: nowrap;">Code / NIC</th>
+                            <th style="padding: 10px 10px; white-space: nowrap;">Teacher Name</th>
+                            <th style="padding: 10px 10px; white-space: nowrap;">Subject</th>
+                            <th style="padding: 10px 10px; white-space: nowrap;">Contact</th>
+                            <th style="padding: 10px 10px; white-space: nowrap;">Date Joined</th>
+                            <th style="padding: 10px 10px; white-space: nowrap;">Salary</th>
+                            <th style="padding: 10px 10px; white-space: nowrap;">Status</th>
+                            <th style="padding: 10px 10px; text-align: right; white-space: nowrap;">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -149,38 +149,38 @@ include_once __DIR__ . '/includes/sidebar.php';
                         <?php else: ?>
                             <?php foreach ($teachers as $t): ?>
                                 <tr style="border-bottom: 1px solid var(--card-border);">
-                                    <td style="padding: 16px 20px;">
+                                    <td style="padding: 10px 10px; white-space: nowrap;">
                                         <div style="font-weight: 700; color: var(--text-main);"><?php echo htmlspecialchars($t['teacher_code']); ?></div>
                                         <div style="font-size: 12px; color: var(--text-muted);"><?php echo htmlspecialchars($t['nic']); ?></div>
                                     </td>
-                                    <td style="padding: 16px 20px;">
+                                    <td style="padding: 10px 10px; white-space: nowrap;">
                                         <div style="font-weight: 600; color: var(--text-main);"><?php echo htmlspecialchars($t['first_name'] . ' ' . $t['last_name']); ?></div>
                                         <div style="font-size: 12px; color: var(--text-muted);"><?php echo htmlspecialchars($t['qualification']); ?></div>
                                     </td>
-                                    <td style="padding: 16px 20px; white-space: nowrap;">
-                                        <span class="subject-badge">
+                                    <td style="padding: 10px 10px; white-space: nowrap;">
+                                        <span class="subject-badge" title="<?php echo htmlspecialchars($t['subject']); ?>">
                                             <?php echo htmlspecialchars($t['subject']); ?>
                                         </span>
                                     </td>
-                                    <td style="padding: 16px 20px;">
+                                    <td style="padding: 10px 10px; white-space: nowrap;">
                                         <div style="color: var(--text-main); font-size: 13px; font-weight: 500;"><?php echo htmlspecialchars($t['email']); ?></div>
                                         <div style="font-size: 12px; color: var(--text-muted); font-weight: 500;"><?php echo htmlspecialchars($t['phone']); ?></div>
                                     </td>
-                                    <td style="padding: 16px 20px; font-size: 13px; color: var(--text-muted); white-space: nowrap;">
+                                    <td style="padding: 10px 10px; font-size: 13px; color: var(--text-muted); white-space: nowrap;">
                                         <?php echo date('M d, Y', strtotime($t['date_joined'])); ?>
                                     </td>
-                                    <td style="padding: 16px 20px; font-weight: 700; color: var(--text-main); white-space: nowrap;">
+                                    <td style="padding: 10px 10px; font-weight: 700; color: var(--text-main); white-space: nowrap;">
                                         Rs. <?php echo number_format($t['salary'], 2); ?>
                                     </td>
-                                    <td style="padding: 16px 20px; white-space: nowrap;">
+                                    <td style="padding: 10px 10px; white-space: nowrap;">
                                         <?php if ($t['status'] === 'Active'): ?>
                                             <span class="status-badge status-active">Active</span>
                                         <?php else: ?>
                                             <span class="status-badge status-inactive">Inactive</span>
                                         <?php endif; ?>
                                     </td>
-                                    <td style="padding: 16px 20px; text-align: right; white-space: nowrap;">
-                                        <div style="display: flex; align-items: center; justify-content: flex-end; gap: 8px;">
+                                    <td style="padding: 10px 10px; text-align: right; white-space: nowrap;">
+                                        <div style="display: flex; align-items: center; justify-content: flex-end; gap: 6px;">
                                             <button type="button" class="btn btn-secondary btn-sm edit-teacher-btn" 
                                                     data-teacher='<?php echo json_encode($t, JSON_HEX_APOS | JSON_HEX_QUOT); ?>'>
                                                 Edit
@@ -227,7 +227,7 @@ include_once __DIR__ . '/includes/sidebar.php';
                     <div class="form-grid-2" style="margin-top: 14px;">
                         <div class="input-field-group">
                             <label class="input-label">NIC / National ID *</label>
-                            <input type="text" name="nic" id="nic" class="login-input" style="height: 42px; background: var(--card-bg); border: 1px solid var(--card-border); color: var(--text-main);" placeholder="e.g. GHA-1234567" required>
+                            <input type="text" name="nic" id="nic" class="login-input" style="height: 42px; background: var(--card-bg); border: 1px solid var(--card-border); color: var(--text-main);" placeholder="e.g. 198514209876" required>
                         </div>
                         <div class="input-field-group">
                             <label class="input-label">Teacher Code (Auto generated if blank)</label>
