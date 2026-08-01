@@ -82,13 +82,4 @@ $current_page = basename($_SERVER['SCRIPT_NAME']);
             </li>
         </ul>
     </nav>
-
-    <!-- Sidebar Footer: Admin User Profile Card (Matching Screenshot) -->
-    <div class="sidebar-user-footer">
-        <div class="sidebar-user-avatar">AD</div>
-        <div class="sidebar-user-info">
-            <span class="sidebar-user-name">Admin User</span>
-            <span class="sidebar-user-email">admin@edusync.edu</span>
-        </div>
-    </div>
 </aside>
