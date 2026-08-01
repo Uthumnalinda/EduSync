@@ -23,7 +23,7 @@ class Dashboard {
                 $totalStudents = $this->db->query("SELECT COUNT(*) FROM students")->fetchColumn();
                 $activeTeachers = $this->db->query("SELECT COUNT(*) FROM teachers WHERE status = 'Active'")->fetchColumn();
                 $totalCourses = $this->db->query("SELECT COUNT(*) FROM courses")->fetchColumn();
-                $activeEnrollments = $this->db->query("SELECT COUNT(*) FROM enrollments WHERE status = 'Active'")->fetchColumn();
+                $activeEnrollments = $this->db->query("SELECT COUNT(*) FROM enrollments WHERE status IN ('Enrolled', 'Active')")->fetchColumn();
                 
                 return [
                     'total_students' => (int)$totalStudents,
@@ -153,7 +153,7 @@ class Dashboard {
                     foreach ($students as $s) {
                         $name = isset($s['full_name']) ? $s['full_name'] : (isset($s['first_name']) ? trim($s['first_name'] . ' ' . $s['last_name']) : 'Student');
                         $code = isset($s['adm_no']) ? $s['adm_no'] : (isset($s['admission_no']) ? $s['admission_no'] : (isset($s['student_code']) ? $s['student_code'] : 'ADM2024'));
-                        $gradeStr = isset($s['grade']) ? $s['grade'] : 'Grade 10';
+                        $gradeStr = isset($s['grade']) ? $s['grade'] : 'Grade 12';
                         if (strpos($gradeStr, 'Grade') === false) {
                             $gradeStr = 'Grade ' . $gradeStr;
                         }

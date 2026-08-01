@@ -59,7 +59,16 @@ $current_page = basename($_SERVER['SCRIPT_NAME']);
                     <span class="nav-icon">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/></svg>
                     </span>
-                    <span class="nav-label">Enrollments</span>
+                    <span class="nav-label">Class Allocations</span>
+                </a>
+            </li>
+
+            <li class="nav-item <?php echo ($current_page == 'marks.php') ? 'active' : ''; ?>">
+                <a href="marks.php">
+                    <span class="nav-icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    </span>
+                    <span class="nav-label">Term Marks</span>
                 </a>
             </li>
 
@@ -82,13 +91,4 @@ $current_page = basename($_SERVER['SCRIPT_NAME']);
             </li>
         </ul>
     </nav>
-
-    <!-- Sidebar Footer: Admin User Profile Card (Matching Screenshot) -->
-    <div class="sidebar-user-footer">
-        <div class="sidebar-user-avatar">AD</div>
-        <div class="sidebar-user-info">
-            <span class="sidebar-user-name">Admin User</span>
-            <span class="sidebar-user-email">admin@edusync.edu</span>
-        </div>
-    </div>
 </aside>

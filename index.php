@@ -81,7 +81,7 @@ include_once __DIR__ . '/includes/sidebar.php';
                 </div>
                 <div class="stat-main">
                     <div class="stat-value"><?php echo number_format($metrics['active_enrollments']); ?></div>
-                    <div class="stat-label">Enrollments</div>
+                    <div class="stat-label">Class Allocations</div>
                 </div>
             </div>
         </div>

@@ -1,12 +1,14 @@
-# EDUsync - School Management Dashboard
+# EDUsync - G.C.E. Advanced Level (A/L) School Management System
 
-A modern, responsive **School Management Dashboard** built using **PHP (OOP)**, **MySQL**, **Vanilla HTML5**, **CSS3**, and **JavaScript** for execution on **XAMPP** (Apache + MySQL).
+A specialized, responsive **G.C.E. Advanced Level (A/L) School Management System** built using **PHP (OOP)**, **MySQL**, **Vanilla HTML5**, **CSS3**, and **JavaScript** for execution on **XAMPP** (Apache + MySQL).
+
+Designed specifically for Sri Lankan Secondary Schools managing Grade 12 & Grade 13 students across A/L Streams (*Physical Science*, *Biological Science*, *Commerce*, *Arts*, *Technology*).
 
 ---
 
 ## 🛠️ Tech Stack
 - **Frontend**: HTML5, Vanilla CSS3 (Custom Design System with Flexbox/Grid), Vanilla JavaScript (ES6+)
-- **Charts & Visualizations**: [Chart.js](https://www.chartjs.org/) (via CDN)
+- **Charts & Visualizations**: [Chart.js](https://www.chartjs.org/)
 - **Backend**: PHP 8.x (Object-Oriented Programming with PDO)
 - **Database**: MySQL / MariaDB (`school_db`)
 - **Server**: XAMPP (Apache + MySQL)
@@ -15,47 +17,37 @@ A modern, responsive **School Management Dashboard** built using **PHP (OOP)**, 
 
 ## 📁 Project Structure
 
-```
-School Management Dashboard/
+```text
+School Management System/
 ├── config/
-│   └── Database.php         # PDO Database Singleton Class
+│   └── Database.php         # PDO Database Singleton Connection
 ├── classes/
-│   └── Dashboard.php        # Dashboard OOP Service Class
+│   ├── Student.php          # Student OOP Service Class
+│   ├── Teacher.php          # Teacher OOP Service Class
+│   ├── Subject.php          # Subject OOP Service Class
+│   ├── Enrollment.php       # Class & Stream Allocation Service Class
+│   ├── Mark.php             # A/L Term Evaluation Marks Service Class
+│   └── Dashboard.php        # Dashboard Metrics & Chart Data Service Class
 ├── includes/
-│   ├── header.php           # Shared Document Head & CSS
-│   ├── sidebar.php          # Shared Navigation Sidebar
-│   ├── navbar.php           # Shared Header Bar
+│   ├── header.php           # Shared Document Head & Fonts
+│   ├── sidebar.php          # Shared Sidebar Navigation
+│   ├── navbar.php           # Shared Header Bar & Search
 │   └── footer.php           # Shared Footer Layout
 ├── assets/
 │   ├── css/
 │   │   └── style.css        # Main Design System CSS
-│   └── js/
-│       └── dashboard.js     # Sidebar toggle & Chart renderers
+│   ├── js/
+│   │   └── dashboard.js     # Client Controller & Chart Renderers
+│   └── img/                 # System Logos & Assets
 ├── index.php                # Main Dashboard View
-├── students.php             # Students Module Starter
-├── teachers.php             # Teachers Module Starter
-├── subject.php              # Subjects Module Directory
-├── enrollments.php          # Enrollments Module Starter
-├── reports.php              # Reports & Analytics Starter
-├── settings.php             # System Settings Starter
-└── database.sql             # MySQL Schema & Seed Data Script
+├── students.php             # A/L Students Directory
+├── teachers.php             # A/L Master Teachers Directory
+├── subject.php              # A/L Subjects Directory
+├── enrollments.php          # A/L Class & Stream Allocations
+├── marks.php                # G.C.E. A/L Term Test Marks & Report Cards
+├── reports.php              # Reports & Analytics Module
+├── settings.php             # Admin Settings & Theme Preferences
+├── login.php                # System Login Authentication
+├── logout.php               # User Logout Handler
+└── database.sql             # G.C.E. A/L MySQL Schema & Sri Lankan Seed Data
 ```
-
----
-
-## 🚀 Setup & Installation (XAMPP)
-
-1. **Start Apache & MySQL**:
-   Open XAMPP Control Panel and start **Apache** and **MySQL**.
-
-2. **Import Database (`database.sql`)**:
-   - Go to `http://localhost/phpmyadmin` in your web browser.
-   - Click on the **Import** tab.
-   - Choose the `database.sql` file from this project folder.
-   - Click **Go** to create the `school_db` database and populate seed data.
-
-3. **Deploy to `htdocs`**:
-   - Move or copy this project folder into `C:/xampp/htdocs/school_dashboard/`.
-
-4. **Launch Application**:
-   - Visit `http://localhost/school_dashboard/index.php` in your web browser.

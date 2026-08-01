@@ -1920,15 +1920,15 @@ body {
   font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-  padding: 14px 20px;
+  letter-spacing: 0.05em;
+  padding: 12px 14px;
   border-bottom: 1px solid #e2e8f0;
   vertical-align: middle;
   white-space: nowrap;
 }
 
 .students-table td {
-  padding: 16px 20px;
+  padding: 12px 14px;
   border-bottom: 1px solid #f1f5f9;
   vertical-align: middle;
   color: var(--text-main);
@@ -1971,8 +1971,12 @@ body {
 
 .subject-badge {
   display: inline-block !important;
+  max-width: 160px !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
   white-space: nowrap !important;
-  padding: 6px 14px !important;
+  vertical-align: middle !important;
+  padding: 5px 10px !important;
   border-radius: 20px !important;
   background: #eff6ff !important;
   color: #2563eb !important;
