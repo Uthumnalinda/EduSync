@@ -1428,76 +1428,90 @@ body {
 }
 
 /* ==========================================================================
-   LOGIN PAGE STYLING (Matching Sample Design)
+   LOGIN PAGE STYLING (Pixel Perfect Match to Design Screenshot)
    ========================================================================== */
 .login-body {
-  margin: 0;
-  padding: 0;
-  height: 100vh;
-  width: 100vw;
-  overflow: hidden;
-  background-color: #ffffff;
+  margin: 0 !important;
+  padding: 40px 20px !important;
+  height: 100vh !important;
+  width: 100vw !important;
+  overflow: hidden !important;
+  background: linear-gradient(135deg, #1b0754 0%, #3a158f 35%, #471cb2 65%, #2a0c6e 100%) !important;
   font-family: var(--font-body);
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-sizing: border-box !important;
 }
 
 .login-container {
-  display: flex;
-  width: 100vw;
-  height: 100vh;
+  display: flex !important;
+  width: 100% !important;
+  max-width: 980px !important;
+  height: 540px !important;
+  background: #ffffff !important;
+  border-radius: 28px !important;
+  box-shadow: 0 30px 70px -15px rgba(0, 0, 0, 0.55), 0 10px 25px -5px rgba(0, 0, 0, 0.3) !important;
+  overflow: hidden !important;
 }
 
 /* Left Section - Form Area */
 .login-left {
-  flex: 1;
+  flex: 0 0 40%;
+  width: 40%;
   background: #ffffff;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
-  padding: 40px 60px;
-  max-width: 580px;
+  padding: 40px 48px;
+  box-sizing: border-box;
 }
 
 .login-form-wrapper {
   width: 100%;
-  max-width: 360px;
+  max-width: 320px;
+  margin: 0 auto;
 }
 
 .login-header {
-  margin-bottom: 32px;
+  margin-bottom: 28px;
 }
 
 .login-title {
   font-family: var(--font-heading);
-  font-size: 38px;
+  font-size: 32px;
   font-weight: 800;
-  color: #0b0d3a;
+  color: #0b0c3f;
   letter-spacing: -0.5px;
-  margin-bottom: 6px;
+  margin: 0;
 }
 
-.login-subtitle {
-  font-size: 14px;
-  color: #1e293b;
-  font-weight: 500;
+.login-error-msg {
+  background: #fef2f2;
+  color: #ef4444;
+  border: 1px solid #fca5a5;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 13px;
+  margin-bottom: 18px;
 }
 
 .login-form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 16px;
 }
 
 .input-field-group {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
 
 .input-label {
-  font-size: 13px;
-  font-weight: 500;
-  color: #334155;
+  font-size: 11px;
+  font-weight: 600;
+  color: #475569;
 }
 
 .input-box-wrapper {
@@ -1508,8 +1522,8 @@ body {
 
 .input-icon-left {
   position: absolute;
-  left: 16px;
-  color: #475569;
+  left: 14px;
+  color: #64748b;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1518,8 +1532,8 @@ body {
 
 .input-icon-right {
   position: absolute;
-  right: 16px;
-  color: #475569;
+  right: 14px;
+  color: #64748b;
   background: none;
   border: none;
   cursor: pointer;
@@ -1531,107 +1545,60 @@ body {
 
 .login-input {
   width: 100%;
-  height: 48px;
-  background-color: #e5e7eb;
-  border: 1px solid transparent;
-  border-radius: 12px;
-  padding: 0 46px;
-  font-size: 14px;
+  height: 42px;
+  background-color: #e8e8e8;
+  border: none;
+  border-radius: 10px;
+  padding: 0 42px;
+  font-size: 13px;
   color: #1e293b;
   outline: none;
   transition: all 0.2s ease;
+  box-sizing: border-box;
 }
 
 .login-input::placeholder {
-  color: #9ca3af;
+  color: #94a3b8;
+  font-size: 12px;
 }
 
 .login-input:focus {
   background-color: #ffffff;
-  border-color: #2563eb;
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
-}
-
-.forgot-password-wrap {
-  text-align: right;
-  margin-top: -6px;
-}
-
-.forgot-password-link {
-  font-size: 13px;
-  font-weight: 700;
-  color: #0b0d3a;
-  text-decoration: underline;
-  transition: opacity 0.2s;
-}
-
-.forgot-password-link:hover {
-  opacity: 0.8;
+  box-shadow: 0 0 0 2px #0b0c3f;
 }
 
 .login-submit-btn {
   width: 100%;
-  height: 48px;
-  background-color: #060726;
+  height: 44px;
+  background-color: #070838;
   color: #ffffff;
   border: none;
-  border-radius: 24px;
-  font-size: 17px;
+  border-radius: 22px;
+  font-size: 15px;
   font-weight: 700;
   cursor: pointer;
   transition: background-color 0.2s ease, transform 0.1s ease;
-  margin-top: 6px;
+  margin-top: 12px;
 }
 
 .login-submit-btn:hover {
-  background-color: #121557;
+  background-color: #0d0f59;
 }
 
 .login-submit-btn:active {
-  transform: scale(0.99);
+  transform: scale(0.98);
 }
 
-.login-footer-actions {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 36px;
-}
-
-.no-account-text {
-  font-size: 13px;
-  color: #1e293b;
-  font-weight: 500;
-}
-
-.signup-outline-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 6px 18px;
-  border: 1px solid #475569;
-  border-radius: 8px;
-  font-size: 13px;
-  font-weight: 500;
-  color: #0f172a;
-  text-decoration: none;
-  transition: all 0.2s ease;
-}
-
-.signup-outline-btn:hover {
-  background-color: #f1f5f9;
-  border-color: #0f172a;
-}
-
-/* Right Section - Edge to Edge Full Cover */
+/* Right Section - Hero Image Area */
 .login-right {
-  flex: 1.3;
-  background: #090a2a;
+  flex: 0 0 60%;
+  width: 60%;
+  background: #080a33;
   position: relative;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
   padding: 0;
 }
 
@@ -1643,14 +1610,37 @@ body {
   display: block;
 }
 
+.login-illustration-container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 340px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: auto;
+}
+
+.login-right-full-img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
 /* Responsive Breakdown */
-@media (max-width: 900px) {
+@media (max-width: 850px) {
+  .login-container {
+    height: auto;
+    max-width: 440px;
+  }
   .login-right {
     display: none;
   }
   .login-left {
-    max-width: 100%;
+    flex: 0 0 100%;
     width: 100%;
+    padding: 40px 30px;
   }
 }
 
