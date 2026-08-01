@@ -193,7 +193,10 @@ include_once __DIR__ . '/includes/sidebar.php';
 
                 <div class="modal-body">
                     <div class="input-field-group">
-                        <label class="input-label">Select Student *</label>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                            <label class="input-label" style="margin-bottom: 0;">Select Student *</label>
+                            <input type="text" id="studentSearchFilter" class="login-input" placeholder="Type student name or ID..." style="height: 32px; width: 200px; font-size: 12px; padding: 4px 10px; background: var(--card-bg); border: 1px solid var(--card-border); color: var(--text-main);">
+                        </div>
                         <select name="student_id" id="studentId" class="login-input" style="height: 42px; background: var(--card-bg); border: 1px solid var(--card-border); color: var(--text-main);" required>
                             <option value="">-- Choose Student --</option>
                             <?php foreach ($activeStudents as $st): ?>
@@ -271,6 +274,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (closeBtn) closeBtn.addEventListener('click', closeModal);
     if (cancelBtn) cancelBtn.addEventListener('click', closeModal);
+
+    // Live Student Search Filter
+    const studentFilterInput = document.getElementById('studentSearchFilter');
+    if (studentFilterInput) {
+        studentFilterInput.addEventListener('input', function() {
+            const filterVal = this.value.toLowerCase().trim();
+            const select = document.getElementById('studentId');
+            Array.from(select.options).forEach(opt => {
+                if (opt.value === '') return;
+                const text = opt.text.toLowerCase();
+                opt.style.display = text.includes(filterVal) ? '' : 'none';
+            });
+        });
+    }
 
     // Edit Allocation Buttons
     document.querySelectorAll('.edit-alloc-btn').forEach(btn => {
