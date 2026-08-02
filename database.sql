@@ -37,7 +37,8 @@ INSERT INTO `students` (`student_code`, `adm_no`, `first_name`, `last_name`, `do
 ('AL2024-003', 'ADM-AL-003', 'Sahan', 'Silva', '2007-11-05', 'Male', 'sahan.silva@edusync.lk', '0753344556', 'No. 8, Temple Rd, Kelaniya', 'Kanthi Silva', '0757766554', 'Grade 12 - Commerce', 'Active'),
 ('AL2024-004', 'ADM-AL-004', 'Piumi', 'Bandara', '2006-01-18', 'Female', 'piumi.bandara@edusync.lk', '0784455667', '14, Lake Rd, Kurunegala', 'Dhammika Bandara', '0786655443', 'Grade 13 - Physical Science', 'Active'),
 ('AL2024-005', 'ADM-AL-005', 'Ruwan', 'Jayawardena', '2007-05-30', 'Male', 'ruwan.jayawardena@edusync.lk', '0705566778', 'No. 50, Station Rd, Badulla', 'Mahinda Jayawardena', '0705544332', 'Grade 12 - Technology', 'Active'),
-('AL2024-006', 'ADM-AL-006', 'Tharushi', 'Wickramasinghe', '2006-09-12', 'Female', 'tharushi.w@edusync.lk', '0776677889', '88, Highlevel Rd, Maharagama', 'Sunil Wickramasinghe', '0714455667', 'Grade 13 - Arts', 'Active');
+('AL2024-006', 'ADM-AL-006', 'Tharushi', 'Wickramasinghe', '2006-09-12', 'Female', 'tharushi.w@edusync.lk', '0776677889', '88, Highlevel Rd, Maharagama', 'Sunil Wickramasinghe', '0714455667', 'Grade 13 - Arts', 'Active'),
+('AL2024-007', 'ADM-AL-007', 'Nuwan', 'Kulatunga', '2007-08-19', 'Male', 'nuwan.k@edusync.lk', '0779988776', 'No. 12, Hospital Rd, Kandy', 'Sarath Kulatunga', '0712233445', 'Grade 12 - Physical Science', 'Active');
 
 -- --------------------------------------------------------
 -- Table structure for `teachers` (G.C.E. A/L Academic Staff)

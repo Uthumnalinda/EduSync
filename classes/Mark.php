@@ -146,7 +146,7 @@ class Mark {
         $sql = "INSERT INTO marks (student_id, course_id, term, marks_obtained, grade, remarks) VALUES (:student_id, :course_id, :term, :marks_obtained, :grade, :remarks)";
         try {
             $stmt = $this->db->prepare($sql);
-            return $stmt->execute([
+            $res = $stmt->execute([
                 ':student_id' => (int)$data['student_id'],
                 ':course_id' => (int)$data['course_id'],
                 ':term' => $data['term'] ?? 'Term 1',
@@ -154,6 +154,31 @@ class Mark {
                 ':grade' => $grade,
                 ':remarks' => $data['remarks'] ?? ''
             ]);
+
+            if ($res) {
+                // Insert real-time notification
+                try {
+                    $st = $this->db->prepare("SELECT first_name, last_name FROM students WHERE id = :id");
+                    $st->execute([':id' => (int)$data['student_id']]);
+                    $stData = $st->fetch();
+
+                    $cs = $this->db->prepare("SELECT course_name FROM courses WHERE id = :id");
+                    $cs->execute([':id' => (int)$data['course_id']]);
+                    $csData = $cs->fetch();
+
+                    if ($stData && $csData) {
+                        $stName = trim($stData['first_name'] . ' ' . $stData['last_name']);
+                        $termName = $data['term'] ?? 'Term 1';
+                        $notifStmt = $this->db->prepare("INSERT INTO notifications (title, message, type, is_read, ref_student_id) VALUES ('Term Marks Published', :msg, 'blue', 0, :sid)");
+                        $notifStmt->execute([
+                            ':msg' => "$stName scored $score% ($grade) in {$csData['course_name']} ($termName)",
+                            ':sid' => (int)$data['student_id']
+                        ]);
+                    }
+                } catch (Exception $e) {}
+            }
+
+            return $res;
         } catch (PDOException $e) {
             return false;
         }
