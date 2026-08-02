@@ -27,11 +27,11 @@ $notifCount = count($navNotifications);
     <!-- Right Section: Search, Notification Bell & Profile Dropdown -->
     <div class="navbar-right">
         <!-- Search Input Box -->
-        <form action="students.php" method="GET" class="navbar-search-box" style="margin: 0;">
+        <form action="search.php" method="GET" class="navbar-search-box" style="margin: 0;">
             <span class="search-box-icon">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
             </span>
-            <input type="text" name="search" placeholder="Search student name or code..." id="globalSearchInput" value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
+            <input type="text" name="search" placeholder="Search students, teachers, subjects..." id="globalSearchInput" value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
         </form>
 
         <!-- Notification Bell Container -->
