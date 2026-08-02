@@ -63,7 +63,7 @@ class Enrollment {
      */
     public function getActiveStudents() {
         if ($this->db === null) return [];
-        $stmt = $this->db->query("SELECT id, CONCAT(student_code, ' - ', first_name, ' ', last_name, ' (', grade, ')') AS full_name FROM students WHERE status = 'Active' ORDER BY first_name ASC");
+        $stmt = $this->db->query("SELECT id, CONCAT(student_code, ' - ', first_name, ' ', last_name, ' (', grade, ')', IF(status = 'Inactive', ' [Inactive]', '')) AS full_name FROM students ORDER BY first_name ASC");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
@@ -95,12 +95,36 @@ class Enrollment {
         $sql = "INSERT INTO enrollments (student_id, course_id, enrollment_date, status) VALUES (:student_id, :course_id, :date, :status)";
         try {
             $stmt = $this->db->prepare($sql);
-            return $stmt->execute([
+            $res = $stmt->execute([
                 ':student_id' => (int)$data['student_id'],
                 ':course_id' => (int)$data['course_id'],
                 ':date' => !empty($data['enrollment_date']) ? $data['enrollment_date'] : date('Y-m-d'),
                 ':status' => $data['status'] ?? 'Enrolled'
             ]);
+
+            if ($res) {
+                // Insert real-time notification
+                try {
+                    $st = $this->db->prepare("SELECT first_name, last_name FROM students WHERE id = :id");
+                    $st->execute([':id' => (int)$data['student_id']]);
+                    $stData = $st->fetch();
+
+                    $cs = $this->db->prepare("SELECT course_name FROM courses WHERE id = :id");
+                    $cs->execute([':id' => (int)$data['course_id']]);
+                    $csData = $cs->fetch();
+
+                    if ($stData && $csData) {
+                        $stName = trim($stData['first_name'] . ' ' . $stData['last_name']);
+                        $notifStmt = $this->db->prepare("INSERT INTO notifications (title, message, type, is_read, ref_student_id) VALUES ('Class Section Allocated', :msg, 'blue', 0, :sid)");
+                        $notifStmt->execute([
+                            ':msg' => "$stName allocated to {$csData['course_name']}",
+                            ':sid' => (int)$data['student_id']
+                        ]);
+                    }
+                } catch (Exception $e) {}
+            }
+
+            return $res;
         } catch (PDOException $e) {
             return false;
         }

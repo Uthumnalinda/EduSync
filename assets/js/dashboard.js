@@ -6,7 +6,42 @@
 document.addEventListener('DOMContentLoaded', () => {
   initDashboardCharts();
   initProfileDropdown();
+  initAutoDismissAlerts();
 });
+
+/**
+ * Automatically dismiss success and error alert banners after 3 seconds
+ */
+function initAutoDismissAlerts() {
+  setTimeout(() => {
+    // 1. Target standard alert elements
+    const alerts = document.querySelectorAll('.alert, .alert-success, .alert-danger, .status-alert');
+    alerts.forEach(alertEl => {
+      alertEl.style.transition = 'opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+      alertEl.style.opacity = '0';
+      alertEl.style.transform = 'translateY(-8px)';
+      setTimeout(() => {
+        alertEl.style.display = 'none';
+      }, 500);
+    });
+
+    // 2. Target custom green/red message banners
+    document.querySelectorAll('div').forEach(el => {
+      const text = el.innerText || '';
+      if ((text.includes('successfully') || text.includes('recorded!') || text.includes('updated!') || text.includes('deleted!')) && el.children.length === 0) {
+        const banner = el.closest('div[style*="background"]') || el;
+        if (banner) {
+          banner.style.transition = 'opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+          banner.style.opacity = '0';
+          banner.style.transform = 'translateY(-8px)';
+          setTimeout(() => {
+            banner.style.display = 'none';
+          }, 500);
+        }
+      }
+    });
+  }, 3000);
+}
 
 /**
  * Toggle Admin Profile Dropdown Menu

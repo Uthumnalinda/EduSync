@@ -133,7 +133,7 @@ class Student {
         
         try {
             $stmt = $this->db->prepare($sql);
-            return $stmt->execute([
+            $res = $stmt->execute([
                 ':student_code' => $data['student_code'],
                 ':adm_no' => $data['adm_no'],
                 ':first_name' => $data['first_name'],
@@ -148,6 +148,21 @@ class Student {
                 ':grade' => $data['grade'],
                 ':status' => $data['status'] ?? 'Active'
             ]);
+
+            if ($res) {
+                $newId = $this->db->lastInsertId();
+                try {
+                    $stName = trim($data['first_name'] . ' ' . $data['last_name']);
+                    $gradeName = $data['grade'] ?? 'Grade 12';
+                    $notifStmt = $this->db->prepare("INSERT INTO notifications (title, message, type, is_read, ref_student_id) VALUES ('New Student Enrolled', :msg, 'green', 0, :sid)");
+                    $notifStmt->execute([
+                        ':msg' => "$stName registered in $gradeName",
+                        ':sid' => (int)$newId
+                    ]);
+                } catch (Exception $e) {}
+            }
+
+            return $res;
         } catch (PDOException $e) {
             return false;
         }
@@ -157,6 +172,20 @@ class Student {
      * Update existing student
      */
     public function update($id, $data) {
+        $existing = $this->getById($id);
+
+        $firstName = $data['first_name'] ?? ($existing['first_name'] ?? '');
+        $lastName = $data['last_name'] ?? ($existing['last_name'] ?? '');
+        $dob = $data['dob'] ?? ($existing['dob'] ?? '');
+        $gender = $data['gender'] ?? ($existing['gender'] ?? '');
+        $email = $data['email'] ?? ($existing['email'] ?? '');
+        $phone = $data['phone'] ?? ($existing['phone'] ?? '');
+        $address = $data['address'] ?? ($existing['address'] ?? '');
+        $guardianName = $data['guardian_name'] ?? ($existing['guardian_name'] ?? '');
+        $guardianPhone = $data['guardian_phone'] ?? ($existing['guardian_phone'] ?? '');
+        $grade = $data['grade'] ?? ($existing['grade'] ?? '');
+        $status = $data['status'] ?? ($existing['status'] ?? 'Active');
+
         $sql = "UPDATE students SET 
                     first_name = :first_name,
                     last_name = :last_name,
@@ -173,20 +202,38 @@ class Student {
 
         try {
             $stmt = $this->db->prepare($sql);
-            return $stmt->execute([
-                ':first_name' => $data['first_name'],
-                ':last_name' => $data['last_name'],
-                ':dob' => $data['dob'],
-                ':gender' => $data['gender'],
-                ':email' => $data['email'],
-                ':phone' => $data['phone'],
-                ':address' => $data['address'],
-                ':guardian_name' => $data['guardian_name'],
-                ':guardian_phone' => $data['guardian_phone'],
-                ':grade' => $data['grade'],
-                ':status' => $data['status'],
+            $res = $stmt->execute([
+                ':first_name' => $firstName,
+                ':last_name' => $lastName,
+                ':dob' => $dob,
+                ':gender' => $gender,
+                ':email' => $email,
+                ':phone' => $phone,
+                ':address' => $address,
+                ':guardian_name' => $guardianName,
+                ':guardian_phone' => $guardianPhone,
+                ':grade' => $grade,
+                ':status' => $status,
                 ':id' => $id
             ]);
+
+            if ($res) {
+                // Insert real-time notification for status change or update
+                try {
+                    $stName = trim($firstName . ' ' . $lastName);
+                    $title = ($status === 'Inactive' || $status === 'Completed A/L') ? 'Student Status Updated' : 'Student Record Updated';
+                    $type = ($status === 'Inactive') ? 'amber' : 'blue';
+                    $notifStmt = $this->db->prepare("INSERT INTO notifications (title, message, type, is_read, ref_student_id) VALUES (:title, :msg, :type, 0, :sid)");
+                    $notifStmt->execute([
+                        ':title' => $title,
+                        ':msg' => "$stName's status set to $status",
+                        ':type' => $type,
+                        ':sid' => (int)$id
+                    ]);
+                } catch (Exception $e) {}
+            }
+
+            return $res;
         } catch (PDOException $e) {
             return false;
         }
