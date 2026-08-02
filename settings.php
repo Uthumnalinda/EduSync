@@ -25,13 +25,29 @@ $userRole = $_SESSION['user_role'] ?? 'Administrator';
 
 $systemTheme = 'light';
 
+$userAvatar = $_SESSION['user_avatar'] ?? null;
+
 if ($db !== null) {
-    $stmt = $db->prepare("SELECT full_name, role FROM users WHERE email = :email LIMIT 1");
+    // Ensure avatar column exists in users table
+    try {
+        $db->exec("ALTER TABLE users ADD COLUMN avatar LONGTEXT DEFAULT NULL");
+    } catch (Exception $e) {}
+    try {
+        $db->exec("ALTER TABLE users MODIFY COLUMN avatar LONGTEXT DEFAULT NULL");
+    } catch (Exception $e) {}
+
+    $stmt = $db->prepare("SELECT full_name, role, avatar FROM users WHERE email = :email LIMIT 1");
     $stmt->execute([':email' => $userEmail]);
     $dbUser = $stmt->fetch();
     if ($dbUser) {
         $userName = $dbUser['full_name'];
         $userRole = $dbUser['role'];
+        if (isset($dbUser['avatar'])) {
+            $userAvatar = $dbUser['avatar'];
+            if (!empty($userAvatar)) {
+                $_SESSION['user_avatar'] = $userAvatar;
+            }
+        }
     }
 
     $stmtPref = $db->prepare("SELECT theme FROM user_preferences WHERE email = :email LIMIT 1");
@@ -51,19 +67,80 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['update_profile'])) {
         $newName = trim(filter_input(INPUT_POST, 'full_name', FILTER_SANITIZE_SPECIAL_CHARS));
         $newPassword = $_POST['new_password'] ?? '';
-        
-        if (!empty($newName) && $db !== null) {
+        $avatarData = $userAvatar;
+
+        // Remove profile photo
+        if (isset($_POST['remove_avatar']) && $_POST['remove_avatar'] == '1') {
+            $avatarData = null;
+            $_SESSION['user_avatar'] = null;
+            unset($_SESSION['user_avatar']);
+        }
+
+        // Upload profile photo and resize to 200x200
+        if (isset($_FILES['avatar']) && $_FILES['avatar']['error'] === UPLOAD_ERR_OK) {
+            $fileTmp = $_FILES['avatar']['tmp_name'];
+            $fileSize = $_FILES['avatar']['size'];
+            $mimeType = mime_content_type($fileTmp);
+            $allowedTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp', 'image/gif'];
+
+            if (!in_array($mimeType, $allowedTypes)) {
+                $errorMessage = "Invalid image format. Allowed formats: PNG, JPG, WEBP, GIF.";
+            } else {
+                $avatarEncoded = false;
+
+                // Resize image using GD library
+                if (function_exists('imagecreatefromstring')) {
+                    $rawBytes = file_get_contents($fileTmp);
+                    $srcImg = @imagecreatefromstring($rawBytes);
+                    if ($srcImg !== false) {
+                        $origW = imagesx($srcImg);
+                        $origH = imagesy($srcImg);
+                        $targetSize = 200;
+
+                        $thumb = imagecreatetruecolor($targetSize, $targetSize);
+                        imagecopyresampled($thumb, $srcImg, 0, 0, 0, 0, $targetSize, $targetSize, $origW, $origH);
+
+                        ob_start();
+                        imagejpeg($thumb, null, 85);
+                        $compressedBytes = ob_get_clean();
+
+                        imagedestroy($srcImg);
+                        imagedestroy($thumb);
+
+                        if (!empty($compressedBytes)) {
+                            $avatarData = 'data:image/jpeg;base64,' . base64_encode($compressedBytes);
+                            $_SESSION['user_avatar'] = $avatarData;
+                            $avatarEncoded = true;
+                        }
+                    }
+                }
+
+                // Fallback if GD library is missing
+                if (!$avatarEncoded) {
+                    if ($fileSize > 1 * 1024 * 1024) {
+                        $errorMessage = "Image file is too large. Please select a photo under 1MB.";
+                    } else {
+                        $rawBytes = file_get_contents($fileTmp);
+                        $avatarData = 'data:' . $mimeType . ';base64,' . base64_encode($rawBytes);
+                        $_SESSION['user_avatar'] = $avatarData;
+                    }
+                }
+            }
+        }
+
+        if (empty($errorMessage) && !empty($newName) && $db !== null) {
             try {
                 if (!empty($newPassword)) {
-                    $stmt = $db->prepare("UPDATE users SET full_name = :full_name, password = :password WHERE email = :email");
-                    $stmt->execute([':full_name' => $newName, ':password' => $newPassword, ':email' => $userEmail]);
+                    $stmt = $db->prepare("UPDATE users SET full_name = :full_name, password = :password, avatar = :avatar WHERE email = :email");
+                    $stmt->execute([':full_name' => $newName, ':password' => $newPassword, ':avatar' => $avatarData, ':email' => $userEmail]);
                 } else {
-                    $stmt = $db->prepare("UPDATE users SET full_name = :full_name WHERE email = :email");
-                    $stmt->execute([':full_name' => $newName, ':email' => $userEmail]);
+                    $stmt = $db->prepare("UPDATE users SET full_name = :full_name, avatar = :avatar WHERE email = :email");
+                    $stmt->execute([':full_name' => $newName, ':avatar' => $avatarData, ':email' => $userEmail]);
                 }
                 $_SESSION['user_name'] = $newName;
                 $userName = $newName;
-                $successMessage = "Profile settings updated successfully.";
+                $userAvatar = $avatarData;
+                $successMessage = "Profile settings and photo saved directly to database successfully.";
             } catch (Exception $e) {
                 $errorMessage = "Failed to update profile: " . $e->getMessage();
             }
@@ -143,12 +220,51 @@ include_once __DIR__ . '/includes/sidebar.php';
                 <div class="dash-card-header" style="margin-bottom: 20px;">
                     <div>
                         <h2 class="dash-card-title">Profile Settings</h2>
-                        <span class="dash-card-subtitle">Update administrator name and account credentials</span>
+                        <span class="dash-card-subtitle">Update administrator name, profile photo, and account credentials</span>
                     </div>
                 </div>
 
-                <form action="settings.php?tab=profile" method="POST" style="display: flex; flex-direction: column; gap: 16px; max-width: 480px;">
+                <form action="settings.php?tab=profile" method="POST" enctype="multipart/form-data" style="display: flex; flex-direction: column; gap: 20px; max-width: 520px;">
                     <input type="hidden" name="update_profile" value="1">
+                    <input type="hidden" name="remove_avatar" id="removeAvatarInput" value="0">
+
+                    <!-- Profile Photo Upload Field -->
+                    <div class="input-field-group" style="margin-bottom: 4px;">
+                        <label class="input-label" style="font-weight: 600; font-size: 13px; color: var(--text-main); margin-bottom: 8px; display: block;">Profile Picture</label>
+                        
+                        <div style="display: flex; align-items: center; gap: 16px;">
+                            <div style="width: 64px; height: 64px; border-radius: 50%; overflow: hidden; background: #f1f5f9; border: 1px solid var(--card-border); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 20px; color: #475569; flex-shrink: 0;">
+                                <?php if (!empty($userAvatar)): ?>
+                                    <img src="<?php echo htmlspecialchars($userAvatar); ?>" alt="Avatar" style="width: 100%; height: 100%; object-fit: cover;">
+                                <?php else: ?>
+                                    <?php 
+                                        $parts = explode(' ', trim($userName));
+                                        $initials = strtoupper(substr($parts[0] ?? 'A', 0, 1) . substr($parts[1] ?? 'D', 0, 1));
+                                        echo htmlspecialchars($initials);
+                                    ?>
+                                <?php endif; ?>
+                            </div>
+
+                            <div style="display: flex; flex-direction: column; gap: 4px;">
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <input type="file" name="avatar" id="avatarFileInput" accept="image/png, image/jpeg, image/jpg, image/webp" style="display: none;" onchange="var fn = this.files[0] ? this.files[0].name : ''; document.getElementById('avatarFileName').textContent = fn;">
+                                    
+                                    <button type="button" class="btn btn-secondary btn-sm" onclick="document.getElementById('avatarFileInput').click();" style="padding: 7px 14px; font-size: 13px; font-weight: 600;">
+                                        Upload Photo
+                                    </button>
+                                    
+                                    <?php if (!empty($userAvatar)): ?>
+                                        <button type="button" onclick="document.getElementById('removeAvatarInput').value='1'; this.form.submit();" style="background: transparent; border: none; color: #dc2626; font-size: 13px; font-weight: 500; cursor: pointer; padding: 4px 8px;">
+                                            Remove
+                                        </button>
+                                    <?php endif; ?>
+                                </div>
+                                
+                                <span id="avatarFileName" style="font-size: 12px; color: var(--primary); font-weight: 600;"></span>
+                                <span style="font-size: 12px; color: var(--text-muted);">JPG, PNG or WEBP (Max 2MB)</span>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="input-field-group">
                         <label class="input-label" style="font-weight: 600; font-size: 13px; color: var(--text-main); margin-bottom: 6px; display: block;">Full Name</label>

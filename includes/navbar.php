@@ -77,8 +77,22 @@ $notifCount = count($navNotifications);
         <!-- User Profile Pill Container -->
         <div class="user-profile-dropdown-wrapper">
             <div class="navbar-user-pill" id="userProfilePill" title="User Profile Menu" onclick="var notif=document.getElementById('notificationDropdownMenu'); var prof=document.getElementById('profileDropdownMenu'); if(notif){ notif.style.display='none'; notif.classList.remove('show'); } if(prof){ var open=(prof.style.display==='block'||prof.classList.contains('show')); prof.style.display=open?'none':'block'; prof.classList.toggle('show', !open); } event.stopPropagation();">
-                <div class="user-pill-avatar">AD</div>
-                <span class="user-pill-name">Admin</span>
+                <div class="user-pill-avatar" style="overflow: hidden; display: flex; align-items: center; justify-content: center;">
+                    <?php 
+                        $navAvatar = $_SESSION['user_avatar'] ?? null;
+                        if (!empty($navAvatar)): 
+                    ?>
+                        <img src="<?php echo htmlspecialchars($navAvatar); ?>" alt="Avatar" style="width: 100%; height: 100%; object-fit: cover;">
+                    <?php else: ?>
+                        <?php 
+                            $navName = $_SESSION['user_name'] ?? 'Admin User';
+                            $nParts = explode(' ', trim($navName));
+                            $nInitials = strtoupper(substr($nParts[0] ?? 'A', 0, 1) . substr($nParts[1] ?? 'D', 0, 1));
+                            echo htmlspecialchars($nInitials);
+                        ?>
+                    <?php endif; ?>
+                </div>
+                <span class="user-pill-name"><?php echo htmlspecialchars($_SESSION['user_name'] ?? 'Admin'); ?></span>
                 <span class="user-pill-chevron">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
                 </span>
