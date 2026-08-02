@@ -1,4 +1,5 @@
 <?php
+// Main dashboard page overview
 session_start();
 
 // Redirect to login page if user is not logged in
@@ -9,7 +10,7 @@ if (!isset($_SESSION['user_email'])) {
 
 require_once __DIR__ . '/classes/Dashboard.php';
 
-// Instantiate OOP Dashboard Service
+// Fetch dashboard data
 $dashboardService = new Dashboard();
 $metrics = $dashboardService->getMetrics();
 $enrollmentTrends = $dashboardService->getEnrollmentTrends();

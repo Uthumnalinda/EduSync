@@ -1,8 +1,5 @@
 <?php
-/**
- * Shared Sidebar Navigation Layout Component
- * Automatically detects current active page to highlight active navigation link
- */
+// Sidebar navigation menu
 $current_page = basename($_SERVER['SCRIPT_NAME']);
 ?>
 

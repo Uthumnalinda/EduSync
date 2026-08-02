@@ -1,12 +1,10 @@
 <?php
-/**
- * Shared Footer Layout Component
- */
+// Document footer and script inclusions
 ?>
-    </div> <!-- End .main-wrapper -->
-</div> <!-- End .app-container -->
+    </div>
+</div>
 
-<!-- Dashboard Client Controller JavaScript -->
+<!-- Main JS controller -->
 <script src="assets/js/dashboard.js?v=<?php echo time(); ?>"></script>
 </body>
 </html>

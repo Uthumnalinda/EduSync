@@ -1,8 +1,5 @@
 <?php
-/**
- * EDUsync School Management System - Term Test Marks & Report Cards Module
- * Sri Lankan Evaluation System (Term 1, Term 2, Term 3 with A, B, C, S, F Grades)
- */
+// Term test marks management page
 
 require_once __DIR__ . '/classes/Mark.php';
 require_once __DIR__ . '/classes/Enrollment.php';

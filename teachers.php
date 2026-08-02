@@ -1,7 +1,5 @@
 <?php
-/**
- * EDUsync School Management System - Teachers Directory
- */
+// Master teachers directory management page
 
 require_once __DIR__ . '/classes/Teacher.php';
 

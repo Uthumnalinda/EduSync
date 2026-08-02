@@ -1,7 +1,5 @@
 <?php
-/**
- * EDUsync School Management System - Academic Reports Page
- */
+// Academic reports and printable progress report cards page
 
 session_start();
 if (!isset($_SESSION['user_email'])) {

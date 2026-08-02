@@ -1,7 +1,5 @@
 <?php
-/**
- * EDUsync School Management System - Settings Page
- */
+// System settings and academic year rollover page
 
 session_start();
 if (!isset($_SESSION['user_email'])) {

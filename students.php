@@ -1,7 +1,5 @@
 <?php
-/**
- * EDUsync School Management System - Students Directory
- */
+// Student directory management page
 
 require_once __DIR__ . '/classes/Student.php';
 

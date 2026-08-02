@@ -1,7 +1,5 @@
 <?php
-/**
- * EDUsync School Management System - Subjects Directory Module
- */
+// Subject catalog management page
 
 require_once __DIR__ . '/classes/Subject.php';
 

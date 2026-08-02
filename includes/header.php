@@ -1,12 +1,12 @@
 <?php
+// Global HTML header and theme initialization
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Read theme setting (light / dark)
+// Read user theme preference
 $sysTheme = $_SESSION['system_theme'] ?? 'light';
 if ($sysTheme === 'dark') {
-    // If not set via DB query in page yet, check DB directly
     if (isset($db) && $db !== null && isset($_SESSION['user_email'])) {
         $stmtTh = $db->prepare("SELECT theme FROM user_preferences WHERE email = :email LIMIT 1");
         $stmtTh->execute([':email' => $_SESSION['user_email']]);
@@ -30,10 +30,10 @@ if ($sysTheme === 'dark') {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- Main Design System CSS -->
+    <!-- Stylesheet -->
     <link rel="stylesheet" href="assets/css/style.css?v=<?php echo time(); ?>">
     
-    <!-- Chart.js CDN for Analytics Visualizations -->
+    <!-- Chart.js library -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 </head>
 <body>

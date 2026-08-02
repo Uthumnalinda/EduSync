@@ -1,8 +1,5 @@
 <?php
-/**
- * EDUsync School Management System - Login Page
- * Refined Human UX/UI Design - Modern, Clean & Authentic.
- */
+// Login page and user authentication
 
 require_once __DIR__ . '/config/Database.php';
 

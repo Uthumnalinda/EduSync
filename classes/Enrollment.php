@@ -1,7 +1,5 @@
 <?php
-/**
- * EDUsync School Management System - Class & Stream Allocation Service Model
- */
+// Class allocation service for assigning students to subject streams
 
 require_once __DIR__ . '/../config/Database.php';
 
@@ -13,9 +11,7 @@ class Enrollment {
         $this->db = $dbInstance->getConnection();
     }
 
-    /**
-     * Get all class allocations with optional search, stream, and class section filter
-     */
+    // Fetch all student class allocations
     public function getAll($search = '', $streamFilter = '', $classFilter = '') {
         if ($this->db === null) return [];
 

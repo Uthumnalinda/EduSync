@@ -1,8 +1,5 @@
 <?php
-/**
- * Database Connection Singleton Class
- * Uses PDO for MySQL Database operations in XAMPP
- */
+// PDO database connection class
 
 class Database {
     private $host = "localhost";
@@ -11,10 +8,7 @@ class Database {
     private $password = "";
     private $conn = null;
 
-    /**
-     * Get Database Connection Instance
-     * @return PDO|null
-     */
+    // Connect to MySQL database
     public function getConnection() {
         if ($this->conn === null) {
             try {

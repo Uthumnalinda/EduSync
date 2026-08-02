@@ -1,8 +1,5 @@
 <?php
-/**
- * EDUsync School Management System - Logout Handler
- * Destroys session safely and redirects to login page.
- */
+// Session logout handler
 
 session_start();
 
