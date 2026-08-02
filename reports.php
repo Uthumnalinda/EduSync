@@ -36,6 +36,15 @@ include_once __DIR__ . '/includes/sidebar.php';
 
 <style>
 @media print {
+    @page {
+        margin: 0 !important;
+        size: A4 portrait;
+    }
+    html, body {
+        background: #ffffff !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
     body * {
         visibility: hidden;
     }
@@ -44,12 +53,16 @@ include_once __DIR__ . '/includes/sidebar.php';
     }
     #printableReportCard {
         position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        padding: 0;
+        left: 15mm;
+        top: 15mm;
+        right: 15mm;
+        width: calc(100% - 30mm) !important;
+        margin: 0 !important;
+        padding: 20px !important;
+        box-shadow: none !important;
+        border: 1px solid #cbd5e1 !important;
         background: #ffffff !important;
-        color: #000000 !important;
+        color: #0f172a !important;
     }
     .no-print {
         display: none !important;
