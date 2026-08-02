@@ -88,10 +88,10 @@ $notifCount = count($navNotifications);
             </div>
 
             <!-- Admin Profile Dropdown Popup Menu -->
-            <div class="profile-dropdown-menu" id="profileDropdownMenu" style="width: 220px; border-radius: 8px; border: 1px solid var(--card-border); box-shadow: var(--shadow-md);">
-                <div class="dropdown-user-header" style="padding: 14px 16px; border-bottom: 1px solid var(--card-border);">
-                    <div style="font-weight: 700; font-size: 14px; color: var(--text-main);"><?php echo htmlspecialchars($_SESSION['user_name'] ?? 'Admin User'); ?></div>
-                    <div style="font-size: 12px; color: var(--text-muted); margin-top: 2px;"><?php echo htmlspecialchars($_SESSION['user_email'] ?? 'admin@edusync.edu'); ?></div>
+            <div class="profile-dropdown-menu" id="profileDropdownMenu" style="width: 240px; border-radius: 8px; border: 1px solid var(--card-border); box-shadow: var(--shadow-md);">
+                <div class="dropdown-user-header" style="padding: 14px 16px; border-bottom: 1px solid var(--card-border); display: block;">
+                    <div style="font-weight: 700; font-size: 14px; color: var(--text-main); line-height: 1.3; margin-bottom: 2px;"><?php echo htmlspecialchars($_SESSION['user_name'] ?? 'Admin User'); ?></div>
+                    <div style="font-size: 12px; color: var(--text-muted); word-break: break-all;"><?php echo htmlspecialchars($_SESSION['user_email'] ?? 'admin@edusync.edu'); ?></div>
                 </div>
                 <div class="dropdown-body" style="padding: 6px 0;">
                     <a href="settings.php?tab=profile" class="dropdown-item" style="padding: 9px 16px; display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text-main); font-size: 13px; font-weight: 500;">
