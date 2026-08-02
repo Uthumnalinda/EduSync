@@ -88,43 +88,25 @@ $notifCount = count($navNotifications);
             </div>
 
             <!-- Admin Profile Dropdown Popup Menu -->
-            <div class="profile-dropdown-menu" id="profileDropdownMenu">
-                <div class="dropdown-user-header">
-                    <div class="dropdown-avatar">AD</div>
-                    <div class="dropdown-user-details">
-                        <span class="dropdown-user-name">Admin User</span>
-                        <span class="dropdown-user-email">admin@edusync.edu</span>
-                        <span class="dropdown-user-badge">Administrator</span>
-                    </div>
+            <div class="profile-dropdown-menu" id="profileDropdownMenu" style="width: 220px; border-radius: 8px; border: 1px solid var(--card-border); box-shadow: var(--shadow-md);">
+                <div class="dropdown-user-header" style="padding: 14px 16px; border-bottom: 1px solid var(--card-border);">
+                    <div style="font-weight: 700; font-size: 14px; color: var(--text-main);"><?php echo htmlspecialchars($_SESSION['user_name'] ?? 'Admin User'); ?></div>
+                    <div style="font-size: 12px; color: var(--text-muted); margin-top: 2px;"><?php echo htmlspecialchars($_SESSION['user_email'] ?? 'admin@edusync.edu'); ?></div>
                 </div>
-                <div class="dropdown-body">
-                    <a href="settings.php?tab=profile" class="dropdown-item">
-                        <div class="dropdown-item-icon">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                        </div>
-                        <div class="dropdown-item-text">
-                            <span class="item-title">My Profile</span>
-                            <span class="item-subtitle">Account settings & info</span>
-                        </div>
+                <div class="dropdown-body" style="padding: 6px 0;">
+                    <a href="settings.php?tab=profile" class="dropdown-item" style="padding: 9px 16px; display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text-main); font-size: 13px; font-weight: 500;">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                        My Profile
                     </a>
-                    <a href="settings.php?tab=preferences" class="dropdown-item">
-                        <div class="dropdown-item-icon">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-                        </div>
-                        <div class="dropdown-item-text">
-                            <span class="item-title">System Preferences</span>
-                            <span class="item-subtitle">Dashboard options</span>
-                        </div>
+                    <a href="settings.php?tab=system" class="dropdown-item" style="padding: 9px 16px; display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text-main); font-size: 13px; font-weight: 500;">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                        System Preferences
                     </a>
                 </div>
-                <div class="dropdown-footer">
-                    <a href="logout.php" class="dropdown-item">
-                        <div class="dropdown-item-icon logout-icon-box">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
-                        </div>
-                        <div class="dropdown-item-text">
-                            <span class="item-title logout-title">Log Out</span>
-                        </div>
+                <div style="border-top: 1px solid var(--card-border); padding: 6px 0;">
+                    <a href="logout.php" class="dropdown-item" style="padding: 9px 16px; display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--danger); font-size: 13px; font-weight: 600;">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                        Log Out
                     </a>
                 </div>
             </div>
