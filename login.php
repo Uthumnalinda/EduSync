@@ -19,7 +19,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
         $userRole = 'Administrator';
 
         if ($db !== null) {
-            $stmt = $db->prepare("SELECT id, full_name, email, password, role FROM users WHERE email = :email LIMIT 1");
+            $stmt = $db->prepare("SELECT id, full_name, email, password, role, avatar FROM users WHERE email = :email LIMIT 1");
             $stmt->execute([':email' => $email]);
             $user = $stmt->fetch();
 
@@ -29,6 +29,9 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
                     $authenticated = true;
                     $userName = $user['full_name'];
                     $userRole = $user['role'];
+                    if (!empty($user['avatar'])) {
+                        $_SESSION['user_avatar'] = $user['avatar'];
+                    }
                 }
             }
         }
