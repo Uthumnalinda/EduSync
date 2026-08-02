@@ -1,7 +1,5 @@
 <?php
-/**
- * EDUsync School Management System - Student Model / Service Class
- */
+// Student model for managing Grade 12 & 13 student records
 
 require_once __DIR__ . '/../config/Database.php';
 
@@ -13,9 +11,7 @@ class Student {
         $this->db = $dbInstance->getConnection();
     }
 
-    /**
-     * Get all students with optional search, grade filter, and status filter
-     */
+    // Get all students with optional search and filters
     public function getAll($search = '', $gradeFilter = '', $statusFilter = '') {
         $sql = "SELECT * FROM students WHERE 1=1";
         $params = [];

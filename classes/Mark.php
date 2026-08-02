@@ -1,8 +1,5 @@
 <?php
-/**
- * EDUsync School Management System - Term Test Marks & Report Card Service Model
- * Implements Authentic Sri Lankan Grading (A: 75+, B: 65+, C: 55+, S: 35+, F: <35)
- */
+// Term test evaluation model and Sri Lankan grade calculator (A: 75+, B: 65+, C: 55+, S: 35+, F: <35)
 
 require_once __DIR__ . '/../config/Database.php';
 
@@ -15,9 +12,7 @@ class Mark {
         $this->ensureTableExists();
     }
 
-    /**
-     * Auto-create marks table if it doesn't exist
-     */
+    // Initialize marks table schema if missing
     private function ensureTableExists() {
         if ($this->db === null) return;
         $sql = "CREATE TABLE IF NOT EXISTS `marks` (

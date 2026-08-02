@@ -1,7 +1,4 @@
-/**
- * EDUsync Dashboard Client-Side Controller
- * Handles sidebar toggling, responsive behavior, and Chart.js initialization
- */
+// Main dashboard client controller and charts renderer
 
 document.addEventListener('DOMContentLoaded', () => {
   initDashboardCharts();
@@ -9,9 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initAutoDismissAlerts();
 });
 
-/**
- * Automatically dismiss success and error alert banners after 3 seconds
- */
+// Auto-dismiss alert banners after 3 seconds
 function initAutoDismissAlerts() {
   setTimeout(() => {
     // 1. Target standard alert elements

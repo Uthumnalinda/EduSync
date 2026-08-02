@@ -1,7 +1,5 @@
 <?php
-/**
- * EDUsync School Management System - A/L Academic Reports Model
- */
+// Report model for academic analytics and student report cards
 
 require_once __DIR__ . '/../config/Database.php';
 
@@ -13,9 +11,7 @@ class Report {
         $this->db = $database->getConnection();
     }
 
-    /**
-     * Get Overall Summary Metrics
-     */
+    // Get summary stats for dashboard cards
     public function getSummaryMetrics() {
         if ($this->db === null) return ['avg_score' => 0, 'a_pass_rate' => 0, 'total_students' => 0, 'total_marks' => 0];
 

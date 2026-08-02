@@ -1,8 +1,5 @@
 <?php
-/**
- * EDUsync School Management System - Universal Global Search Page
- * Searches across Students, Teachers, and Subjects simultaneously.
- */
+// Universal global search across students, teachers, and subjects
 
 session_start();
 if (!isset($_SESSION['user_email'])) {

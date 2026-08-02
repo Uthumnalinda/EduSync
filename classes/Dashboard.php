@@ -1,8 +1,5 @@
 <?php
-/**
- * Dashboard Service Class (OOP)
- * Queries MySQL Database in Real-Time for statistics, metrics, student records, and chart analytics.
- */
+// Dashboard model for fetching live metrics and chart statistics
 
 require_once __DIR__ . '/../config/Database.php';
 
@@ -14,9 +11,7 @@ class Dashboard {
         $this->db = $database->getConnection();
     }
 
-    /**
-     * Fetch key performance indicator (KPI) metric counts live from MySQL database
-     */
+    // Get KPI metric cards for dashboard
     public function getMetrics() {
         if ($this->db !== null) {
             try {

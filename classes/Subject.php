@@ -1,7 +1,5 @@
 <?php
-/**
- * EDUsync School Management System - Subject Model / Service Class
- */
+// Subject model for managing A/L subject catalog
 
 require_once __DIR__ . '/../config/Database.php';
 
@@ -13,9 +11,7 @@ class Subject {
         $this->db = $dbInstance->getConnection();
     }
 
-    /**
-     * Get all subjects with optional search and grade filter
-     */
+    // Fetch all subjects with optional search
     public function getAll($search = '', $gradeFilter = '') {
         if ($this->db === null) return [];
 

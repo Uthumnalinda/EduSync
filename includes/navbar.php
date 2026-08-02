@@ -1,8 +1,5 @@
 <?php
-/**
- * Shared Navbar Header Layout Component
- * Matches custom navbar design with Page Title, Breadcrumbs, Pill Search, Bell Badge, Notification Popup, and Profile Dropdown Popup
- */
+// Navbar component with page title, search bar, notifications, and profile menu
 $displayTitle = isset($pageTitle) ? $pageTitle : 'Dashboard';
 
 // Fetch live database notifications

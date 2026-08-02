@@ -1,7 +1,5 @@
 <?php
-/**
- * EDUsync School Management System - Class & Stream Allocation Module
- */
+// Class section and subject stream allocations page
 
 require_once __DIR__ . '/classes/Enrollment.php';
 

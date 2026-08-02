@@ -1,8 +1,5 @@
 <?php
-/**
- * EDUsync API Endpoint - Mark All Notifications as Read
- * Updates is_read = 1 in MySQL database for all unread notifications
- */
+// API endpoint to mark notifications as read
 
 header('Content-Type: application/json');
 

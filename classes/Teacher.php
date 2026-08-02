@@ -1,7 +1,5 @@
 <?php
-/**
- * EDUsync School Management System - Teacher Model / Service Class
- */
+// Teacher model for managing master academic staff
 
 require_once __DIR__ . '/../config/Database.php';
 
@@ -13,9 +11,7 @@ class Teacher {
         $this->db = $dbInstance->getConnection();
     }
 
-    /**
-     * Get all teachers with optional search, subject filter, and status filter
-     */
+    // Get all teachers with search and filters
     public function getAll($search = '', $subjectFilter = '', $statusFilter = '') {
         if ($this->db === null) return [];
 
